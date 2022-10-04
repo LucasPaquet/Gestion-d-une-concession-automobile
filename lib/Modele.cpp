@@ -11,6 +11,9 @@ const int L_NOM = 60;
 //Constructeur
 Modele::Modele()
 {
+  #ifdef DEBUG
+  cout << "Contructeur par default" << endl;
+  #endif
   nom = new char[L_NOM];
   strcpy(nom, "Voiture de malade");
   puissance = 100;
@@ -18,16 +21,22 @@ Modele::Modele()
   prixDeBase = 12500.0;
 }
 
-Modele::Modele(char * c, int i, Moteur m,float f)
+Modele::Modele(const char * c, int i, Moteur m,float f)
 {
-  nom = new char[L_NOM];
-  strcpy(nom,c);
+  #ifdef DEBUG
+  cout << "Contructeur d'initialisation" << endl;
+  #endif
+  nom=NULL;
+  setNom(c);
   puissance = i;
   moteur = m;
   prixDeBase = f;
 }
 Modele::Modele(const Modele& p)
 {
+  #ifdef DEBUG
+  cout << "Contructeur de copie" << endl;
+  #endif
   nom = new char[L_NOM];
   strcpy(nom,p.nom);
   puissance = p.puissance;
@@ -37,36 +46,57 @@ Modele::Modele(const Modele& p)
 //Destucteur
 Modele::~Modele()
 {
+  #ifdef DEBUG
   cout << "Destructeur" << endl;
-  if (nom) delete nom;
+  this->Affiche();
+  #endif
+  if (nom)
+    delete[] nom;
+
 }
 //getX et SetX
-char * Modele::getNom() {return nom;}
-int Modele::getPuissance() {return puissance;}
-Moteur Modele::getMoteur() {return moteur;}
-float Modele::getPrixDeBase() {return prixDeBase;}
+char * Modele::getNom() const {return nom;}
+int Modele::getPuissance() const {return puissance;}
+Moteur Modele::getMoteur() const {return moteur;}
+float Modele::getPrixDeBase() const {return prixDeBase;}
 
-void Modele::setNom(char * c) 
+void Modele::setNom(const char * c) 
 {
-	nom = new char[L_NOM];
-	strcpy(nom, c);
+  if (c)
+  {
+    if (nom)
+    {
+      delete[] nom;  
+    }
+    
+  	nom = new char[strlen(c)+1];
+  	strcpy(nom, c);
+  }
 }
-void Modele::setPuissance(int p) {puissance = p;}
+void Modele::setPuissance(int p) 
+{
+  if (p>=0)
+    puissance = p;
+}
 void Modele::setMoteur(Moteur m) {moteur = m;}
-void Modele::setPrixDeBase(float p) {prixDeBase = p;}
+void Modele::setPrixDeBase(float p) 
+{
+  if (prixDeBase >= 0)
+    prixDeBase = p;
+}
 //Fonctions
 void Modele::Affiche() // affiche le modele au terminal
 {
-  char * c;
-  int i;
-  Moteur m;
-  float p;
-  c = getNom();
-  i = getPuissance();
-  m = getMoteur();
-  p = getPrixDeBase();
-  cout << c << endl;
-  cout << i << endl;
-  cout << m << endl;
-  cout << p << endl;
+  cout << "Nom : "<< nom << " puissance : " << puissance << " Prix de base : " << prixDeBase;
+  switch(moteur)
+  {
+    case Essence: cout << "Essence" << endl;
+      break;
+    case Electrique: cout << "Electrique" << endl;
+      break;
+    case Diesel: cout << "Diesel" << endl;
+      break;
+    case Hybride: cout << "Hybride" << endl;
+      break;
+  }
 }

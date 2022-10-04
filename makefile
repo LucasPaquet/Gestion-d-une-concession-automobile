@@ -9,7 +9,7 @@ Test1:	Test1.cpp $(OBJECT)/Modele.o
 	g++ Test1.cpp -I $(HEADERS) $(OBJECT)/Modele.o -o Test1
 $(OBJECT)/Modele.o:	$(LIB)/Modele.cpp $(HEADERS)/Modele.h
 	echo Creation Modele.o
-	g++ $(LIB)/Modele.cpp -I $(HEADERS) -c -o $(OBJECT)/Modele.o
+	g++ $(LIB)/Modele.cpp -I $(HEADERS) -c -o $(OBJECT)/Modele.o #-D DEBUG
 
 clean:
 	rm -f $(OBJECT)/*.o

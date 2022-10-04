@@ -8,23 +8,22 @@ class Modele
 private:
   char * nom;
   int puissance;
-
   Moteur moteur;
   float prixDeBase;
 public:
   //constructeur
   Modele();
-  Modele(char * c, int i, Moteur m,float f);
+  Modele(const char * c, int i, Moteur m,float f);
   Modele(const Modele& p);
   //destructeur
   ~Modele();
   // getteur
-  char * getNom();
-  int getPuissance();
-  Moteur getMoteur();
-  float getPrixDeBase();
+  char * getNom() const;
+  int getPuissance() const;
+  Moteur getMoteur() const;
+  float getPrixDeBase() const;
   //setteur
-  void setNom(char * );
+  void setNom(const char * );
   void setPuissance(int );
   void setMoteur(Moteur );
   void setPrixDeBase(float ); 
