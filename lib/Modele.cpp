@@ -69,8 +69,8 @@ void Modele::setNom(const char * c)
       delete[] nom;  
     }
     
-  	nom = new char[strlen(c)+1];
-  	strcpy(nom, c);
+    nom = new char[strlen(c)+1];
+    strcpy(nom, c);
   }
 }
 void Modele::setPuissance(int p) 
