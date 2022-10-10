@@ -16,7 +16,11 @@ public:
   //destructeur
   ~Voiture();
   // getteur
+  std::string getNom() const ;
+  Modele getModele() const ;
   //setteur
+  void setNom(std::string s);
+  void setModele(const Modele& m);
   //fonctions
   void Affiche();
 };

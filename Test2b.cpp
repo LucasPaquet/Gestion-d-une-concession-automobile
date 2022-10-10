@@ -39,7 +39,7 @@ int main()
       option2.setPrix(300.0f);
       option2.Affiche();
     }
-    cout << "option1 (APRES) :" << endl;
+    cout << "option1 (APRES) :" << option1.getCode() <<endl;
     option1.Affiche();
   }
 

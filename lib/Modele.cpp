@@ -87,7 +87,7 @@ void Modele::setPrixDeBase(float p)
 //Fonctions
 void Modele::Affiche() // affiche le modele au terminal
 {
-  cout << "Nom : "<< nom << " puissance : " << puissance << " Prix de base : " << prixDeBase;
+  cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase << ", Moteur : ";
   switch(moteur)
   {
     case Essence: cout << "Essence" << endl;
@@ -100,3 +100,12 @@ void Modele::Affiche() // affiche le modele au terminal
       break;
   }
 }
+
+// Modele& Modele::operator=(const Modele& m)
+// {
+//   nom = m.nom;
+//   puissance = m.puissance;
+//   prixDeBase = m.prixDeBase;
+//   moteur = m.moteur;
+//   return (*this); 
+// }

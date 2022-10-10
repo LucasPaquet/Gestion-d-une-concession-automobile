@@ -34,21 +34,21 @@ int main()
   //   v.getModele().Affiche();
   // }
 
-  // cout << endl << "(4) ***** Test du constructeur de copie de Voiture *********************************" << endl;
-  // {
-  //   Voiture v1("Projet_208GTi_MrLepresse",Modele("208 GTi 1.6",200,Essence,34100.0f));
-  //   cout << "v1 (AVANT) :" << endl;
-  //   v1.Affiche();
-  //   {   
-  //     Voiture v2(v1);
-  //     cout << "v2 :" << endl;
-  //     v2.Affiche();
-  //     v2.setNom("Projet_208GTi_MrLepresse_bis");
-  //     v2.Affiche();
-  //   }
-  //   cout << "v1 (APRES) :" << endl;
-  //   v1.Affiche();
-  // }
+  cout << endl << "(4) ***** Test du constructeur de copie de Voiture *********************************" << endl;
+  {
+    Voiture v1("Projet_208GTi_MrLepresse",Modele("208 GTi 1.6",200,Essence,34100.0f));
+    cout << "v1 (AVANT) :" << endl;
+    v1.Affiche();
+    {   
+      Voiture v2(v1);
+      cout << "v2 :" << endl;
+      v2.Affiche();
+      v2.setNom("Projet_208GTi_MrLepresse_bis");
+      v2.Affiche();
+    }
+    cout << "v1 (APRES) :" << endl;
+    v1.Affiche();
+  }
 
   return 0;
 }

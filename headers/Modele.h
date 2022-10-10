@@ -29,6 +29,7 @@ public:
   void setPrixDeBase(float ); 
   //fonctions
   void Affiche();
+  // Modele& operator=(Modele& m);
 };
 
 #endif
