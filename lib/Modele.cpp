@@ -5,8 +5,6 @@
 
 using namespace std;
 
-const int L_NOM = 60;
-
 
 //Constructeur
 Modele::Modele()
@@ -14,8 +12,8 @@ Modele::Modele()
   #ifdef DEBUG
   cout << "Contructeur par default" << endl;
   #endif
-  nom = new char[L_NOM];
-  strcpy(nom, "Voiture de malade");
+  nom =NULL;
+  setNom("Voiture sans nom");
   puissance = 100;
   moteur = Electrique;
   prixDeBase = 12500.0;
@@ -37,8 +35,8 @@ Modele::Modele(const Modele& p)
   #ifdef DEBUG
   cout << "Contructeur de copie" << endl;
   #endif
-  nom = new char[L_NOM];
-  strcpy(nom,p.nom);
+  nom = NULL;
+  setNom(p.getNom());
   puissance = p.puissance;
   moteur = p.moteur;
   prixDeBase = p.prixDeBase;
@@ -55,7 +53,7 @@ Modele::~Modele()
 
 }
 //getX et SetX
-char * Modele::getNom() const {return nom;}
+const char * Modele::getNom() const {return nom;}
 int Modele::getPuissance() const {return puissance;}
 Moteur Modele::getMoteur() const {return moteur;}
 float Modele::getPrixDeBase() const {return prixDeBase;}

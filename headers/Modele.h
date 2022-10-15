@@ -18,7 +18,7 @@ public:
   //destructeur
   ~Modele();
   // getteur
-  char * getNom() const;
+  const char * getNom() const;
   int getPuissance() const;
   Moteur getMoteur() const;
   float getPrixDeBase() const;
