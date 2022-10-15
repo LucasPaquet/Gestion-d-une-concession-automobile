@@ -1,30 +1,37 @@
 .SILENT:
 
-LIB =./lib
-HEADERS =./headers
+CLASS =./class
 OBJECT =./object
 
-Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
-	echo Creation de Test2
-	g++ Test2b.cpp -I $(HEADERS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
+Test2c:	Test2c.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
+	echo Creation de Test2c
+	g++ Test2c.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2c #-D DEBUG
 
-$(OBJECT)/Modele.o:	$(LIB)/Modele.cpp $(HEADERS)/Modele.h
+$(OBJECT)/Modele.o:	$(CLASS)/Modele.cpp $(CLASS)/Modele.h
 	echo Creation Modele.o
-	g++ $(LIB)/Modele.cpp -I $(HEADERS) -c -o $(OBJECT)/Modele.o #-D DEBUG
+	g++ $(CLASS)/Modele.cpp -I $(CLASS) -c -o $(OBJECT)/Modele.o #-D DEBUG
 
-$(OBJECT)/Voiture.o:	$(LIB)/Voiture.cpp $(HEADERS)/Voiture.h
+$(OBJECT)/Voiture.o:	$(CLASS)/Voiture.cpp $(CLASS)/Voiture.h
 	echo Creation Voiture.o
-	g++ $(LIB)/Voiture.cpp -I $(HEADERS) -c -o $(OBJECT)/Voiture.o #-D DEBUG
+	g++ $(CLASS)/Voiture.cpp -I $(CLASS) -c -o $(OBJECT)/Voiture.o #-D DEBUG
 
-$(OBJECT)/Option.o:	$(LIB)/Option.cpp $(HEADERS)/Option.h
+$(OBJECT)/Option.o:	$(CLASS)/Option.cpp $(CLASS)/Option.h
 	echo Creation Option.o
-	g++ $(LIB)/Option.cpp -I $(HEADERS) -c -o $(OBJECT)/Option.o #-D DEBUG
+	g++ $(CLASS)/Option.cpp -I $(CLASS) -c -o $(OBJECT)/Option.o #-D DEBUG
+Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
+	echo Creation de Test2b
+	g++ Test2b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
+Test2a:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
+	echo Creation de Test2a
+	g++ Test2a.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2a #-D DEBUG
+
 clean:
 	echo Suppression des .o
 	rm -f $(OBJECT)/*.o
 	
 clobber:
-	echo Suppression de Test2 et Test2b
-	rm -f Test2
+	echo Suppression de Test2a, Test2b et Test2c
+	rm -f Test2a
 	rm -f Test2b
+	rm -f Test2c
 
