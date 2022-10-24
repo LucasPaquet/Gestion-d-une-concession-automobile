@@ -10,7 +10,6 @@ class Voiture
 
   friend Voiture operator+(Option optionv, Voiture v); //pour v2 = op2 + v2;
   friend ostream& operator<<(ostream& s,Voiture& v);
-  friend istream& operator>> (istream& s, Voiture& v);
 
 private:
   string nom;
@@ -49,6 +48,7 @@ public:
   int operator<(Voiture& v); 
   int operator>(Voiture& v); 
   int operator==(Voiture& v); 
+  Option* operator[](int i);
 
   //fonctions
 

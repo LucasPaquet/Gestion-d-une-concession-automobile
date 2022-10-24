@@ -82,6 +82,36 @@ void Modele::setPrixDeBase(float p)
   if (prixDeBase >= 0)
     prixDeBase = p;
 }
+
+// operateur de surchages
+
+ostream& operator<<(ostream& s,Modele& m)
+{
+  s << "Nom : "<< m.nom << ", puissance : " << m.puissance << ", Prix de base : " << m.prixDeBase << ", Moteur : ";
+  switch(m.moteur)
+  {
+    case Essence: s << "Essence" << endl;
+      break;
+    case Electrique: s << "Electrique" << endl;
+      break;
+    case Diesel: s << "Diesel" << endl;
+      break;
+    case Hybride: s << "Hybride" << endl;
+      break;
+  }
+  
+  return s;
+}
+
+istream& operator>> (istream& s, Modele& m)
+{
+  s >> m.puissance;
+  s >> m.prixDeBase;
+  //s >> m.moteur;  //ne veut pas compiler 
+  s >> m.nom;
+  return s;
+}
+
 //Fonctions
 void Modele::Affiche() // affiche le modele au terminal
 {

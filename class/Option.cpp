@@ -40,7 +40,6 @@ Option::~Option()
 	#ifdef DEBUG
 	cout << "Destructeur" << endl;
 	#endif
-
 }
 //getteur
 string Option::getCode() const {return code;}
@@ -51,6 +50,53 @@ float Option::getPrix() const{return prix;}
 void Option::setCode(string s) {code = s;}
 void Option::setIntitule(string s) {intitule = s;}
 void Option::setPrix(float p) {prix = p;}
+
+// surcharges operateur
+
+Option Option::operator-(float ristourne)
+{
+  #ifdef DEBUG
+  cout << "Operateur de surcharges - (string code)" << endl;
+  #endif
+  Option v(*this);
+  v.prix = v.prix - ristourne;
+  return (v);
+}
+
+ostream& operator<<(ostream& s,Option& o)
+{
+  s << "Code : " << o.code << ", Intitule : " << o.intitule << ", prix : " << o.prix << endl;
+  
+  return s;
+}
+
+istream& operator>>(istream& s, Option& o)
+{
+  cout << "Code : ";
+  s >> o.code;
+  cout << "Intitule : ";
+  s >> o.intitule;
+  cout << "prix : ";
+  s >> o.prix;
+  return s;
+}
+
+Option Option::operator--() // pré-incrémentation
+{
+  //cout << "Operateur de surcharges --" << endl;
+  (*this) = (*this) - 50.0;
+  return (*this);
+}
+
+Option Option::operator--(int)
+{
+ Option temp(*this);
+ (*this) = (*this) - 50.0;
+ return temp;
+}
+
+
+
 
 //Fonctions
 void Option::Affiche() // affiche l'Option au terminal

@@ -1,10 +1,14 @@
 #ifndef MODELE_H
 #define MODELE_H
 
+using namespace std;
+
 enum Moteur{Essence, Diesel, Electrique, Hybride};
 
 class Modele
 {
+  friend ostream& operator<<(ostream& s,Modele& m);
+  friend istream& operator>>(istream& s, Modele& m);
 private:
   char * nom;
   int puissance;

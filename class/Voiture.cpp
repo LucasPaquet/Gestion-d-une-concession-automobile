@@ -125,27 +125,6 @@ Voiture& Voiture::operator=(const Voiture& v)
   return (*this); 
 }
 
-// Voiture Voiture::operator+(const Option & option)
-// {
-//   int i;
-//   Voiture v(*this);
-//   #ifdef DEBUG
-//   cout << "Operateur de surcharges +" << endl;
-//   #endif
-//   for (i=0;i<5;i++)
-//   {
-//     if (v.options[i] == NULL)
-//     {
-//       v.options[i] = new Option[1];
-//       v.options[i]->setCode(option.getCode());
-//       v.options[i]->setIntitule(option.getIntitule());
-//       v.options[i]->setPrix(option.getPrix());
-//       break;
-//     }
-//   }
-//   return (v);
-// }
-
 Voiture Voiture::operator+(const Option & option)
 {
   #ifdef DEBUG
@@ -188,32 +167,6 @@ Voiture Voiture::operator-(string code)
   return (v);
 }
 
-// Voiture Voiture::operator-(string code)
-// {
-//   #ifdef DEBUG
-//   cout << "Operateur de surcharges - (string code)" << endl;
-//   #endif
-//   Voiture v(*this);
-
-//   string debug;
-
-//   int i=0;
-//   cout << "Operateur de surcharges - (string code)" << endl;
-//   debug = v.options[i]->getCode();
-//   cout << "Operateur de surcharges - (string code)" << endl;
-//   for (i=0;i<5;i++)
-//   {
-//     if (v.options[i]->getCode() == code)
-//     {
-//       delete[] v.options[i];
-//       v.options[i] = NULL;
-//       break;
-//     }
-//   }
-//   return (v);
-// }
-
-
 int Voiture::operator<(Voiture& v)
 {
   float prix1,prix2;
@@ -252,17 +205,26 @@ int Voiture::operator==(Voiture& v)
 
 ostream& operator<<(ostream& s,Voiture& v)
 {
-  //s << ;
-  v.Affiche();
+  int i;
+  s << "Nom de la voiture voiture : " << v.nom << " Modele de la voiture : " << endl;
+  v.modele.Affiche();
+  for (i=0;i<5;i++)
+  {
+    if (v.options[i] != NULL)
+    {
+      s << "Option n" << i << " : ";
+      v.options[i]->Affiche();
+    }
+  }
+  
   return s;
 }
 
-istream& operator>> (istream& s, Voiture& v)
+Option* Voiture::operator[](int i)
 {
-  // Option options;
-  // cin << options;
-  // return s;
-  }
+  return getOption(i);
+}
+
 
 
 //Fonctions
