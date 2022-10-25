@@ -43,7 +43,9 @@ Modele::Modele(const Modele& p)
   prixDeBase = p.prixDeBase;
 }
 
+
 //Destucteur
+
 
 Modele::~Modele()
 {
@@ -55,7 +57,6 @@ Modele::~Modele()
     delete[] nom;
 
 }
-
 //getX et SetX
 
 const char * Modele::getNom() const {return nom;}
@@ -68,12 +69,14 @@ void Modele::setNom(const char * c)
   if (c)
   {
     if (nom)
+
     {
       delete[] nom;  
     }
     
     nom = new char[strlen(c)+1];
     strcpy(nom, c);
+
   }
 }
 void Modele::setPuissance(int p) 
@@ -87,6 +90,7 @@ void Modele::setPrixDeBase(float p)
   if (prixDeBase >= 0)
     prixDeBase = p;
 }
+
 
 // operateur de surchages
 
@@ -126,6 +130,9 @@ istream& operator>> (istream& s, Modele& m)
   return s;
 }
 
+//Fonctions
+
+=======
 //Fonctions
 
 void Modele::Affiche() // affiche le modele au terminal

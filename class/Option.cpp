@@ -3,6 +3,9 @@
 
 #include "Option.h"
 
+
+using namespace std;
+
 //Constructeur
 Option::Option()
 {
@@ -14,7 +17,9 @@ Option::Option()
   prix = 500.0;
 }
 
+
 Option::Option(string c,string i, float p)
+
 {
   #ifdef DEBUG
   cout << "Contructeur d'initialisation" << endl;
@@ -40,6 +45,7 @@ Option::~Option()
 	#ifdef DEBUG
 	cout << "Destructeur" << endl;
 	#endif
+
 }
 //getteur
 string Option::getCode() const {return code;}
@@ -95,6 +101,20 @@ Option Option::operator--(int)
 }
 
 
+
+
+
+
+}
+//getteur
+std::string Option::getCode() const {return code;}
+std::string Option::getIntitule() const {return intitule;}
+float Option::getPrix() const{return prix;}
+
+// setteur
+void Option::setCode(std::string s) {code = s;}
+void Option::setIntitule(std::string s) {intitule = s;}
+void Option::setPrix(float p) {prix = p;}
 
 
 //Fonctions
