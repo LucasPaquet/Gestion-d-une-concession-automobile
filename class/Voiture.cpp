@@ -213,7 +213,7 @@ ostream& operator<<(ostream& s,Voiture& v)
     if (v.options[i] != NULL)
     {
       s << "Option n" << i << " : ";
-      v.options[i]->Affiche();
+      s << *v.options[i];
     }
   }
   

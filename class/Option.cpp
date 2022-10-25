@@ -63,7 +63,7 @@ Option Option::operator-(float ristourne)
   return (v);
 }
 
-ostream& operator<<(ostream& s,Option& o)
+ostream& operator<<(ostream& s,const Option& o)
 {
   s << "Code : " << o.code << ", Intitule : " << o.intitule << ", prix : " << o.prix << endl;
   
@@ -73,9 +73,9 @@ ostream& operator<<(ostream& s,Option& o)
 istream& operator>>(istream& s, Option& o)
 {
   cout << "Code : ";
-  s >> o.code;
+  getline(s,o.code);
   cout << "Intitule : ";
-  s >> o.intitule;
+  getline(s,o.intitule);
   cout << "prix : ";
   s >> o.prix;
   return s;
@@ -83,7 +83,6 @@ istream& operator>>(istream& s, Option& o)
 
 Option Option::operator--() // pré-incrémentation
 {
-  //cout << "Operateur de surcharges --" << endl;
   (*this) = (*this) - 50.0;
   return (*this);
 }

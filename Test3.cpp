@@ -84,7 +84,6 @@ void Essai1()
       Voiture v2;
       cout << ">>>>> v2 = v1;  (+ on retire une option)" << endl;
       v2 = v1;
-      cout << "debug" << endl;
       v2.RetireOption("0MM0");
       cout << "---- v2 ----------------------------" << endl;
       v2.Affiche();
@@ -138,8 +137,7 @@ void Essai3()
   v3 = v3 + Option("0MM0","Peinture metallisee",570.0f);
   cout << "----- v3 (avant) -----------------" << endl;
   v3.Affiche();
-  
-  v3 = v3 - Option("ZV02","Vision tete haute",350.0f); 
+  v3 = v3 - Option("ZV02","Vision tete haute",350.0f);  // !!!
   v3 = v3 - "0MM0";                                     // !!!
   cout << "----- v3 (apres) ------------------" << endl;
   v3.Affiche();
@@ -234,8 +232,7 @@ void Essai8()
   Option op1("0MM0","Peinture metallisee",450.0f);
   cout << "Affichons d'abord op1 : " << op1 << endl;
   cout << "Resultat de cout << --op1 << endl; :" << endl;  
-  //cout << --op1 << endl;        // Si tout va bien, op1 est decremente avant d'etre affiche ! // ne marche pas comme
-  --op1;
+  cout << --op1 << endl;        // Si tout va bien, op1 est decremente avant d'etre affiche !
   cout << "et on reaffiche op1 : " << op1 << endl << endl;
 
   cout << "**********************************************************************" << endl;
@@ -244,8 +241,7 @@ void Essai8()
   Option op2("ZH75","Jantes alliage 15 pouces",350.0f);
   cout << "Affichons d'abord op2 : " << op2 << endl;
   cout << "Resultat de cout << op2-- << endl; :" << endl;  
-  //cout << op2-- << endl;        // Si tout va bien, op2 est decremente apres avoir ete affiche !
-  op2--;
+  cout << op2-- << endl;        // Si tout va bien, op2 est decremente apres avoir ete affiche !
   cout << "et on reaffiche op2 : " << op2 << endl << endl;
 }
 

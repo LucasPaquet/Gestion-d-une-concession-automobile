@@ -7,7 +7,7 @@ enum Moteur{Essence, Diesel, Electrique, Hybride};
 
 class Modele
 {
-  friend ostream& operator<<(ostream& s,Modele& m);
+  friend ostream& operator<<(ostream& s,const Modele& m);
   friend istream& operator>>(istream& s, Modele& m);
 private:
   char * nom;

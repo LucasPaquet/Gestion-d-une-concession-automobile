@@ -18,6 +18,10 @@ $(OBJECT)/Voiture.o:	$(CLASS)/Voiture.cpp $(CLASS)/Voiture.h
 $(OBJECT)/Option.o:	$(CLASS)/Option.cpp $(CLASS)/Option.h
 	echo Creation Option.o
 	g++ $(CLASS)/Option.cpp -I $(CLASS) -c -o $(OBJECT)/Option.o #-D DEBUG
+
+Test1:	Test1.cpp $(OBJECT)/Modele.o
+	echo Creation de Test1
+	g++ Test1.cpp -I $(CLASS) $(OBJECT)/Modele.o -o Test1
 Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test2b
 	g++ Test2b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
@@ -34,6 +38,7 @@ clean:
 	
 clobber:
 	echo Suppression des executables
+	rm -f Test1
 	rm -f Test2a
 	rm -f Test2b
 	rm -f Test2c

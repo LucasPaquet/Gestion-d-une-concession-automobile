@@ -4,7 +4,7 @@
 using namespace std;
 class Option
 {
-  friend ostream& operator<<(ostream& s,Option& o);
+  friend ostream& operator<<(ostream& s,const Option& o);
   friend istream& operator>>(istream& s, Option& o);
 private:
   string code;

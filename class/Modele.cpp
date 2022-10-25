@@ -8,6 +8,7 @@ using namespace std;
 
 
 //Constructeur
+
 Modele::Modele()
 {
   #ifdef DEBUG
@@ -41,7 +42,9 @@ Modele::Modele(const Modele& p)
   moteur = p.moteur;
   prixDeBase = p.prixDeBase;
 }
+
 //Destucteur
+
 Modele::~Modele()
 {
   #ifdef DEBUG
@@ -52,7 +55,9 @@ Modele::~Modele()
     delete[] nom;
 
 }
+
 //getX et SetX
+
 const char * Modele::getNom() const {return nom;}
 int Modele::getPuissance() const {return puissance;}
 Moteur Modele::getMoteur() const {return moteur;}
@@ -85,7 +90,7 @@ void Modele::setPrixDeBase(float p)
 
 // operateur de surchages
 
-ostream& operator<<(ostream& s,Modele& m)
+ostream& operator<<(ostream& s,const Modele& m)
 {
   s << "Nom : "<< m.nom << ", puissance : " << m.puissance << ", Prix de base : " << m.prixDeBase << ", Moteur : ";
   switch(m.moteur)
@@ -105,14 +110,24 @@ ostream& operator<<(ostream& s,Modele& m)
 
 istream& operator>> (istream& s, Modele& m)
 {
+  string buff;
+  int moteurInt;
+  cout << "Nom : ";
+  getline(cin,buff);
+  cout << "Puissance : ";
   s >> m.puissance;
+  cout << "Prix de base : ";
   s >> m.prixDeBase;
-  //s >> m.moteur;  //ne veut pas compiler 
-  s >> m.nom;
+  cout << "Moteur : ";
+  s >> moteurInt;
+  m.moteur = (Moteur)moteurInt;
+  
+  m.setNom(buff.data());
   return s;
 }
 
 //Fonctions
+
 void Modele::Affiche() // affiche le modele au terminal
 {
   cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase << ", Moteur : ";
