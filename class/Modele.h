@@ -1,10 +1,16 @@
 #ifndef MODELE_H
 #define MODELE_H
 
+using namespace std;
+
 enum Moteur{Essence, Diesel, Electrique, Hybride};
 
 class Modele
 {
+
+  friend ostream& operator<<(ostream& s,const Modele& m);
+  friend istream& operator>>(istream& s, Modele& m);
+
 private:
   char * nom;
   int puissance;
@@ -18,7 +24,8 @@ public:
   //destructeur
   ~Modele();
   // getteur
-  char * getNom() const;
+  const char * getNom() const;
+
   int getPuissance() const;
   Moteur getMoteur() const;
   float getPrixDeBase() const;

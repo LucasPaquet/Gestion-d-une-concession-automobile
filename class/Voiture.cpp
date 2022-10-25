@@ -4,8 +4,6 @@
 #include "Voiture.h"
 #include "Modele.h"
 
-using namespace std;
-
 
 //Constructeur
 Voiture::Voiture()
@@ -22,7 +20,9 @@ Voiture::Voiture()
   
 }
 
-Voiture::Voiture(std::string n, Modele m)
+
+Voiture::Voiture(string n,const Modele& m)
+
 {
   int i;
   #ifdef DEBUG
@@ -49,11 +49,7 @@ Voiture::Voiture(const Voiture& p)
     optionp = p.getOption(i);
     if (optionp != NULL)
     {
-      optionso = NULL;
-      optionso = new Option[1];
-      optionso->setCode(optionp->getCode());
-      optionso->setIntitule(optionp->getIntitule());
-      optionso->setPrix(optionp->getPrix());
+      optionso = new Option(*optionp);
       setOption(optionso, i);
     }
     else
@@ -74,16 +70,20 @@ Voiture::~Voiture()
 	#endif
   for(i=0;i<5;i++)
   {
-    delete[] options[i];
+    if(options[i] != NULL)
+    {
+      delete options[i];
+    }
   }
 
 }
 //getX et SetX
-std::string Voiture::getNom() const {return nom;}
+
+string Voiture::getNom() const {return nom;}
 Modele Voiture::getModele() const {return modele;}
 Option * Voiture::getOption(int i) const {return options[i];}
 
-void Voiture::setNom(std::string s) {nom = s;}
+void Voiture::setNom(string s) {nom = s;}
 void Voiture::setModele(const Modele& m) 
 {
   modele.setNom(m.getNom());
@@ -96,6 +96,137 @@ void Voiture::setOption( Option* o, int i)
 {
   options[i] = o;
 }
+
+//operateur de surchage
+
+Voiture& Voiture::operator=(const Voiture& v)
+{
+  int i;
+  Option* optionp=NULL,* optionso=NULL;
+
+  #ifdef DEBUG
+  cout << "Operateur de surcharges = " << endl;
+  #endif
+
+  for(i=0;i<5;i++)
+  {
+    optionp = v.getOption(i);
+    if (optionp != NULL)
+    {
+      optionso = new Option(*optionp);
+      setOption(optionso, i);
+    }
+    else
+    {
+      options[i] =NULL;
+    }
+  }
+  nom = v.nom;
+  setModele(v.modele);
+
+  return (*this); 
+}
+
+Voiture Voiture::operator+(const Option & option)
+{
+  #ifdef DEBUG
+  cout << "Operateur de surcharges +" << endl;
+  #endif
+  Voiture v(*this);
+  //cout << "Operateur de surcharges +" << endl;
+  v.AjouteOption(option);  
+  //v.Affiche();
+  return (v);
+}
+
+Voiture operator+(Option optionv,Voiture v) // pour v2 = op2 + v2;
+{
+  #ifdef DEBUG
+  cout << "Operateur de surcharges +" << endl;
+  #endif
+  return (v + optionv);
+}
+
+Voiture Voiture::operator-(const Option & option)
+{
+  string code;
+  Voiture v(*this);
+  #ifdef DEBUG
+  cout << "Operateur de surcharges - (const Option & option)" << endl;
+  #endif
+  code = option.getCode();
+  v.RetireOption(code);
+  return (v);
+}
+
+Voiture Voiture::operator-(string code)
+{
+  #ifdef DEBUG
+  cout << "Operateur de surcharges - (string code)" << endl;
+  #endif
+  Voiture v(*this);
+  v.RetireOption(code);
+  return (v);
+}
+
+int Voiture::operator<(Voiture& v)
+{
+  float prix1,prix2;
+  prix1 = getPrix();
+  prix2 = v.getPrix();
+  if (prix1 < prix2)
+  {
+    return 1;
+  }
+  return 0;
+}
+
+int Voiture::operator>(Voiture& v)
+{
+  float prix1,prix2;
+  prix1 = getPrix();
+  prix2 = v.getPrix();
+  if (prix1 > prix2)
+  {
+    return 1;
+  }
+  return 0;
+}
+
+int Voiture::operator==(Voiture& v)
+{
+  float prix1,prix2;
+  prix1 = getPrix();
+  prix2 = v.getPrix();
+  if (prix1 == prix2)
+  {
+    return 1;
+  }
+  return 0;
+}
+
+ostream& operator<<(ostream& s,Voiture& v)
+{
+  int i;
+  s << "Nom de la voiture voiture : " << v.nom << " Modele de la voiture : " << endl;
+  v.modele.Affiche();
+  for (i=0;i<5;i++)
+  {
+    if (v.options[i] != NULL)
+    {
+      s << "Option n" << i << " : ";
+      s << *v.options[i];
+    }
+  }
+  
+  return s;
+}
+
+Option* Voiture::operator[](int i)
+{
+  return getOption(i);
+}
+
 
 
 
@@ -125,7 +256,7 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
     optionp = getOption(i);
     if (optionp == NULL)
     {
-      optionp = new Option[1];
+      optionp = new Option;
       optionp->setCode(option.getCode());
       optionp->setIntitule(option.getIntitule());
       optionp->setPrix(option.getPrix());
@@ -135,17 +266,22 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
   setOption(optionp, i);
 }
 
-void Voiture::RetireOption(std::string code) // retire une option a la voiture
+
+void Voiture::RetireOption(string code) // retire une option a la voiture
 {
   int i;
-
+  
   for (i=0;i<5;i++)
   {
-    if (options[i]->getCode() == code)
+    if(options[i] != NULL)
     {
-      delete[] options[i];
-      options[i] = NULL;
-      break;
+      if (options[i]->getCode() == code)
+      {
+
+        delete options[i];
+        options[i] = NULL;
+        break;
+      }
     }
   }
 }

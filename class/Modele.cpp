@@ -8,6 +8,7 @@ using namespace std;
 
 
 //Constructeur
+
 Modele::Modele()
 {
   #ifdef DEBUG
@@ -41,7 +42,11 @@ Modele::Modele(const Modele& p)
   moteur = p.moteur;
   prixDeBase = p.prixDeBase;
 }
+
+
 //Destucteur
+
+
 Modele::~Modele()
 {
   #ifdef DEBUG
@@ -53,7 +58,8 @@ Modele::~Modele()
 
 }
 //getX et SetX
-char * Modele::getNom() const {return nom;}
+
+const char * Modele::getNom() const {return nom;}
 int Modele::getPuissance() const {return puissance;}
 Moteur Modele::getMoteur() const {return moteur;}
 float Modele::getPrixDeBase() const {return prixDeBase;}
@@ -63,11 +69,14 @@ void Modele::setNom(const char * c)
   if (c)
   {
     if (nom)
-      delete[] nom;  
 
+    {
+      delete[] nom;  
+    }
+    
     nom = new char[strlen(c)+1];
     strcpy(nom, c);
-    
+
   }
 }
 void Modele::setPuissance(int p) 
@@ -81,7 +90,51 @@ void Modele::setPrixDeBase(float p)
   if (prixDeBase >= 0)
     prixDeBase = p;
 }
+
+
+// operateur de surchages
+
+ostream& operator<<(ostream& s,const Modele& m)
+{
+  s << "Nom : "<< m.nom << ", puissance : " << m.puissance << ", Prix de base : " << m.prixDeBase << ", Moteur : ";
+  switch(m.moteur)
+  {
+    case Essence: s << "Essence" << endl;
+      break;
+    case Electrique: s << "Electrique" << endl;
+      break;
+    case Diesel: s << "Diesel" << endl;
+      break;
+    case Hybride: s << "Hybride" << endl;
+      break;
+  }
+  
+  return s;
+}
+
+istream& operator>> (istream& s, Modele& m)
+{
+  string buff;
+  int moteurInt;
+  cout << "Nom : ";
+  getline(cin,buff);
+  cout << "Puissance : ";
+  s >> m.puissance;
+  cout << "Prix de base : ";
+  s >> m.prixDeBase;
+  cout << "Moteur : ";
+  s >> moteurInt;
+  m.moteur = (Moteur)moteurInt;
+  
+  m.setNom(buff.data());
+  return s;
+}
+
 //Fonctions
+
+=======
+//Fonctions
+
 void Modele::Affiche() // affiche le modele au terminal
 {
   cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase << ", Moteur : ";
