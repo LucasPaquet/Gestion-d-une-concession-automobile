@@ -92,7 +92,15 @@ void Voiture::setModele(const Modele& m)
 
 void Voiture::setOption( Option* o, int i)
 {
-  options[i] = o;
+  if (options[i] == NULL)
+  {
+    options[i] = o;
+  }
+  else
+  {
+    //throw(OptionException("Option deja presente"));
+  }
+  
 }
 
 //operateur de surchage
@@ -246,8 +254,8 @@ void Voiture::Affiche() // affiche le Voiture au terminal
 
 void Voiture::AjouteOption(const Option & option) // ajoute une option a la voiture
 {
-  int i;
-  Option * optionp = NULL;
+  int i, v; // v pour verifier les codes après avoir trouver une place libre
+  Option * optionp = NULL, * optionv = NULL; // optionv pour garder le pointeur de la place libre avant de continer a chercher avec optionp
   for (i=0;i<5;i++)
   {
     optionp = getOption(i);
@@ -259,11 +267,43 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
       optionp->setPrix(option.getPrix());
       break;
     }
+    else
+    {
+      if (optionp->getCode() == option.getCode()) // a chaque fois que la place est prise (optionp != NULL), on verifie que le code est différent que celui qu'on rajoute sinon on lance une exception 
+      {
+        //throw(OptionException("La voiture contient une option avec le meme code"));
+        break;
+      }
+    }
   }
-  setOption(optionp, i);
+
+  v = i; // on garde la position de i parce que on va continuer a verifier si les autres codes sont différent de celui que l'on veut rajouter
+  optionv = optionp; 
+  for (i=i+1;i<5;i++) // i = i + 1 par ce que on ne va pas vérifier un code alors que le pointeur est forcément NULL
+  {
+    optionp = getOption(i);
+    if (optionp != NULL)
+    {
+      if (optionp->getCode() == option.getCode())
+      {
+        v = 5; // v = 5 pour mettre false a la condition en bas et etre sur que il n'ajoute pas l'option
+        //throw(OptionException("La voiture contient deja 5 option"));
+        break;
+      }
+    }
+  }
+  if (v!=5) // pour verifier si la voiture n'est pas remplie d'option
+  {
+    setOption(optionv, v);
+  }
+  else
+  {
+    //throw(OptionException("La voiture contient deja 5 option"));
+  }
+  
 }
 
-void Voiture::RetireOption(string code) // retire une option a la voiture
+void Voiture::RetireOption(string code) // retire une option a la voiture 
 {
   int i;
   
@@ -279,6 +319,11 @@ void Voiture::RetireOption(string code) // retire une option a la voiture
         break;
       }
     }
+  }
+
+  if (i==5)
+  {
+    //throw(OptionException("L'option que vous essayer de suprrimez n'est pas équipé sur la voiture"));
   }
 }
 

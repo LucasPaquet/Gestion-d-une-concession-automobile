@@ -4,6 +4,8 @@
 #include "Personne.h"
 #include "Employe.h"
 
+#include "PasswordException.h"
+
 //Constructeur
 Employe::Employe()
 {
@@ -57,13 +59,42 @@ void Employe::setMotDePasse(string m)
 {
   if (m.empty() == 0)
   {
-    if(motDePasse)
+    if (m.size() < 6)
     {
-      delete motDePasse;
+      //throw(PasswordException(1));
+    }
+    else
+    {
+      if (m.find_first_of("abcdefghijklmnopqrstuvwxyz", 0) == m.npos)
+      {
+        //throw(PasswordException(2));
+      }
+      else
+      {
+        if (m.find_first_of("0123456789", 0) == m.npos)
+        {
+          //throw(PasswordException(3));
+        }
+        else
+        {
+          if(motDePasse)
+          {
+            delete motDePasse;
+          }
+          
+          motDePasse = new string;
+          *motDePasse = m;
+        }
+      }
+
+      
+
+
+
+
+     
     }
     
-    motDePasse = new string;
-    *motDePasse = m;
   }
 }
 
@@ -80,7 +111,13 @@ string Employe::getLogin() const {return login;}
 string Employe::getMotDePasse() const
 {
   if (motDePasse != NULL)
+  {
     return *motDePasse;
+  }
+  else
+  {
+    //throw(PasswordException(4));
+  }
   return "";
 } 
 

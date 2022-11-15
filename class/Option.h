@@ -1,7 +1,13 @@
 #ifndef OPTION_H
 #define OPTION_H
+
+#include "OptionException.h"
 #include <string>
+
 using namespace std;
+
+class ErrCalcul {};
+
 class Option
 {
   friend ostream& operator<<(ostream& s,const Option& o);
@@ -23,7 +29,7 @@ public:
   string getIntitule() const ;
   float getPrix() const;
   //setteur
-  void setCode(string s);
+  void setCode(string s) throw (OptionException);
   void setIntitule(string s);
   void setPrix(float p);
 
@@ -32,7 +38,6 @@ public:
   Option operator-(float ristourne);
   Option operator--();
   Option operator--(int);
-  //Option operator--(int);
 
   //fonctions
 

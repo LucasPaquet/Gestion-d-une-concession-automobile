@@ -19,9 +19,30 @@ Option::Option(string c,string i, float p)
   #ifdef DEBUG
   cout << "Contructeur d'initialisation" << endl;
   #endif
-  code= c;
-  intitule =i;
-  prix = p;
+  if (c.size() ==  4)
+  {
+    code = c;
+  }
+  else
+  {
+    //throw(OptionException("Code incorrect"));
+  }
+  if (i.size() !=  0)
+  {
+    intitule = i;
+  }
+  else
+  {
+    //throw(OptionException("Code incorrect"));
+  }
+  if (p > 0)
+  {
+    prix = p;
+  }
+  else
+  {
+    //throw(OptionException("Prix incorrect (il doit etre positif"));
+  }
 }
 
 Option::Option(const Option& o)
@@ -47,9 +68,40 @@ string Option::getIntitule() const {return intitule;}
 float Option::getPrix() const{return prix;}
 
 // setteur
-void Option::setCode(string s) {code = s;}
-void Option::setIntitule(string s) {intitule = s;}
-void Option::setPrix(float p) {prix = p;}
+void Option::setCode(string s) throw(OptionException)
+{
+  if (s.size() ==  4)
+  {
+    code = s;
+  }
+  else
+  {
+    //throw OptionException();
+  }
+}
+void Option::setIntitule(string s) 
+{
+  if (s.size() != 0)
+  {
+    intitule = s;
+  }
+  else
+  {
+    //throw(OptionException("Intitule incorrect"));
+  }
+}
+void Option::setPrix(float p) 
+{
+  if (p > 0)
+  {
+    prix = p;
+  }
+  else
+  {
+    //throw(OptionException("Prix incorrect (il doit etre positif"));
+  }
+ 
+}
 
 // surcharges operateur
 
@@ -83,14 +135,29 @@ istream& operator>>(istream& s, Option& o)
 
 Option Option::operator--() // pré-incrémentation
 {
-  (*this) = (*this) - 50.0;
+  if(this->prix > 50)
+  {
+    (*this) = (*this) - 50.0;
+  }
+  else
+  {
+    //throw(OptionException("Le prix est en dessous de 50 euros"));
+  }
+  
   return (*this);
 }
 
 Option Option::operator--(int)
 {
- Option temp(*this);
- (*this) = (*this) - 50.0;
+  Option temp(*this);
+  if(this->prix > 50)
+  {
+    (*this) = (*this) - 50.0;
+  }
+  else
+  {
+    //throw(OptionException("Le prix est en dessous de 50 euros"));
+  }
  return temp;
 }
 
