@@ -2,7 +2,9 @@
 #define CLIENT_H
 
 #include <string>
+
 #include "Personne.h"
+#include "Intervenant.h"
 
 using namespace std;
 

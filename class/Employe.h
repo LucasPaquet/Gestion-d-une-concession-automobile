@@ -2,6 +2,8 @@
 #define EMPLOYE_H
 
 #include <string>
+
+#include "Intervenant.h"
 #include "Personne.h"
 
 using namespace std;

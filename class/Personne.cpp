@@ -37,6 +37,7 @@ Personne::~Personne()
 	#ifdef DEBUG
 	cout << "Destructeur" << endl;
 	#endif
+  cout << "Destructeur de Personne" << endl;
 }
 
 //getXXX et setXXX
@@ -74,59 +75,6 @@ Personne& Personne::operator=(const Personne& p)
 
   return (*this); 
 }
-
-//Fonctions 
-
-
-// ---------- INTERVENANT ------------------
-
-//Constructeur
-Intervenant::Intervenant()
-{
-  #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
-  #endif
-  numero = 0;
-}
-
-//Constructeur
-Intervenant::Intervenant(string nom, string prenom, int n) : Personne(nom, prenom)
-{
-  #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
-  #endif
-  numero = n;
-}
-
-//Destructeur 
-
-Intervenant::~Intervenant()
-{
-  #ifdef DEBUG
-  cout << "Destructeur" << endl;
-  #endif
-}
-
-// SetXXX et getXXX
-
-int Intervenant::getNumero() const {return numero;}
-void Intervenant::setNumero(int n) {numero = n;}
-
-// Surcharge des operateurs
-
-Intervenant& Intervenant::operator=(const Intervenant& i)
-{
-
-  #ifdef DEBUG
-  cout << "Operateur de surcharges = " << endl;
-  #endif
-
-  numero = i.numero;
-
-  return (*this); 
-}
-
-//Fonctions
 
 
 
