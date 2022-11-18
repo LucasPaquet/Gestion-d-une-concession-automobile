@@ -3,11 +3,9 @@
 CLASS =./class
 OBJECT =./object
 
-
-Test3:	Test3.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
-	echo Creation de Test3
-	g++ Test3.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test3 #-D DEBUG
-
+Test4:	Test4.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/Intervenant.o
+	echo Creation de Test4
+	g++ Test4.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/Intervenant.o -o Test4 #-D DEBUG
 
 $(OBJECT)/Modele.o:	$(CLASS)/Modele.cpp $(CLASS)/Modele.h
 	echo Creation Modele.o
@@ -20,6 +18,22 @@ $(OBJECT)/Voiture.o:	$(CLASS)/Voiture.cpp $(CLASS)/Voiture.h
 $(OBJECT)/Option.o:	$(CLASS)/Option.cpp $(CLASS)/Option.h
 	echo Creation Option.o
 	g++ $(CLASS)/Option.cpp -I $(CLASS) -c -o $(OBJECT)/Option.o #-D DEBUG
+
+$(OBJECT)/Personne.o:	$(CLASS)/Personne.cpp $(CLASS)/Personne.h
+	echo Creation Personne.o
+	g++ $(CLASS)/Personne.cpp -I $(CLASS) -c -o $(OBJECT)/Personne.o #-D DEBUG
+
+$(OBJECT)/Intervenant.o:	$(CLASS)/Intervenant.cpp $(CLASS)/Intervenant.h $(OBJECT)/Personne.o
+	echo Creation Intervenant.o
+	g++ $(CLASS)/Intervenant.cpp -I $(CLASS) -c -o $(OBJECT)/Intervenant.o #-D DEBUG
+
+$(OBJECT)/Client.o:	$(CLASS)/Client.cpp $(CLASS)/Client.h $(OBJECT)/Intervenant.o
+	echo Creation Client.o
+	g++ $(CLASS)/Client.cpp -I $(CLASS) -c -o $(OBJECT)/Client.o #-D DEBUG
+
+$(OBJECT)/Employe.o:	$(CLASS)/Employe.cpp $(CLASS)/Employe.h $(OBJECT)/Intervenant.o
+	echo Creation Employe.o
+	g++ $(CLASS)/Employe.cpp -I $(CLASS) -c -o $(OBJECT)/Employe.o #-D DEBUG
 
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1
@@ -34,6 +48,9 @@ Test2a:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 Test2c:	Test2c.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test2c
 	g++ Test2c.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2c #-D DEBUG
+Test3:	Test3.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
+	echo Creation de Test3
+	g++ Test3.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test3 #-D DEBUG
 
 
 clean:
