@@ -1,5 +1,6 @@
 #ifndef OPTION_H
 #define OPTION_H
+
 #include <string>
 using namespace std;
 class Option
@@ -35,7 +36,6 @@ public:
   //Option operator--(int);
 
   //fonctions
-
   void Affiche();
 };
 

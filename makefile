@@ -38,6 +38,7 @@ $(OBJECT)/Employe.o:	$(CLASS)/Employe.cpp $(CLASS)/Employe.h $(OBJECT)/Intervena
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1
 	g++ Test1.cpp -I $(CLASS) $(OBJECT)/Modele.o -o Test1
+
 Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test2b
 	g++ Test2b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
@@ -51,6 +52,7 @@ Test3:	Test3.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test3
 	g++ Test3.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test3 #-D DEBUG
 
+
 clean:
 	echo Suppression des .o
 	rm -f $(OBJECT)/*.o
@@ -62,4 +64,5 @@ clobber:
 	rm -f Test2b
 	rm -f Test2c
 	rm -f Test3
+
 
