@@ -78,19 +78,19 @@ void Essai1()
     Option o1;
     string c,i;
     float p;
-    cout << "Encodez une option :" << endl;
-    cout << "Code = ";
-    getline(cin,c);
-    o1.setCode(c);   // !!!
-    cout << "Intitule = ";
-    getline(cin,i);
-    o1.setIntitule(i);  // !!!
-    cout << "Prix = ";
-    cin >> p;
-    cin.ignore();
-    o1.setPrix(p);  // !!!
-    o1--;
-    cout << "Voici l'option encodee : " << o1 << endl << endl;
+    // cout << "Encodez une option :" << endl;
+    // cout << "Code = ";
+    // getline(cin,c);
+    // o1.setCode(c);   // !!!
+    // cout << "Intitule = ";
+    // getline(cin,i);
+    // o1.setIntitule(i);  // !!!
+    // cout << "Prix = ";
+    // cin >> p;
+    // cin.ignore();
+    // o1.setPrix(p);  // !!!
+    // o1--;
+    // cout << "Voici l'option encodee : " << o1 << endl << endl;
 
     cout << "----- 1.2 Test du constructeur d'initialisation de Option --------------------" << endl;
     cout << "Encodez une option :" << endl;
@@ -111,9 +111,9 @@ void Essai1()
     cout << "Nouvelle ristourne de 50 euros sur la derniere option encodee..." << endl;
     cout << "Voici l'option apres ristourne : " << --o2 << endl;  // !!!
   }
-  catch(OptionException)
+  catch(OptionException& w)
   {
-    cout << "Erreur" << endl;
+    cout << "Erreur d'option : " << w.getMessage() << endl;
   }
   // ...
   
@@ -166,9 +166,9 @@ void Essai2()
     cout << "----- 2.4 La voiture apres le retrait de l'option -------------------------------" << endl;
     cout << v1 << endl;
   }
-  catch(OptionException)
+  catch(OptionException& e)
   {
-    cout << "Erreur" << endl;
+    cout << "Erreur d'option : " << e.getMessage() << endl;
   }
   
   cout << endl;
@@ -199,9 +199,9 @@ void Essai3()
     cout << "Affichage du mot de passe :" << endl;
     cout << "Mot de passe = " << e1.getMotDePasse() << endl;  // !!!
   }
-  catch(PasswordException)
+  catch(PasswordException& e)
   {
-    cout << "Erreur" << endl;
+    cout << "Erreur n°" << e.getCode() << " " << e.getMessage() << endl;
   }
   
   cout << endl;
@@ -228,13 +228,13 @@ void Essai4()
     cout << "Affichage du mot de passe :" << endl;
     cout << "Mot de passe = " << e1.getMotDePasse() << endl;
   }
-  catch(OptionException)
+  catch(OptionException& w)
   {
-    cout << "Erreur exceptions : " << endl;
+    cout << "Erreur d'option : " << w.getMessage() << endl;
   }
-  catch(PasswordException)
+  catch(PasswordException& p)
   {
-    cout << "Erreur PasswordException : " << endl;
+    cout << "Erreur password n°" << p.getCode() << " : " << p.getMessage() << endl;
   }
   
   cout << endl;

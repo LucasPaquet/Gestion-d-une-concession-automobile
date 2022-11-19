@@ -14,13 +14,16 @@ private:
 public:
 	//contruction
 	PasswordException();
-	// PasswordException(string m);
-	// PasswordException(const PasswordException& e);
-	// //destructeur
-	// ~PasswordException();
+	PasswordException(string m, int c);
+	PasswordException(int c);
+	PasswordException(const PasswordException& e);
+	//destructeur
+	~PasswordException();
 
 	//setXXX et getXXX
 	void setCode(int i);
+
+	string getMessage() const;
 	int getCode() const;
 	
 };

@@ -29,7 +29,7 @@ public:
   string getIntitule() const ;
   float getPrix() const;
   //setteur
-  void setCode(string s) throw (OptionException);
+  void setCode(string s);
   void setIntitule(string s);
   void setPrix(float p);
 

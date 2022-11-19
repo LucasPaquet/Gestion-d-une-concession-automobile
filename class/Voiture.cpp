@@ -98,7 +98,7 @@ void Voiture::setOption( Option* o, int i)
   }
   else
   {
-    //throw(OptionException("Option deja presente"));
+    throw(OptionException("Option deja presente"));
   }
   
 }
@@ -271,7 +271,7 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
     {
       if (optionp->getCode() == option.getCode()) // a chaque fois que la place est prise (optionp != NULL), on verifie que le code est différent que celui qu'on rajoute sinon on lance une exception 
       {
-        //throw(OptionException("La voiture contient une option avec le meme code"));
+        throw(OptionException("La voiture contient une option avec le meme code"));
         break;
       }
     }
@@ -287,7 +287,7 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
       if (optionp->getCode() == option.getCode())
       {
         v = 5; // v = 5 pour mettre false a la condition en bas et etre sur que il n'ajoute pas l'option
-        //throw(OptionException("La voiture contient deja 5 option"));
+        throw(OptionException("La voiture contient deja 5 option"));
         break;
       }
     }
@@ -298,7 +298,7 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
   }
   else
   {
-    //throw(OptionException("La voiture contient deja 5 option"));
+    throw(OptionException("La voiture contient deja 5 option"));
   }
   
 }

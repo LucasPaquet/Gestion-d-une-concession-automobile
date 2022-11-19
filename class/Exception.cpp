@@ -15,29 +15,35 @@ Exception::Exception()
 Exception::Exception(string m)
 {
   #ifdef DEBUG
-  cout << "Contructeur d'initialisation" << endl;
+  cout << "Contructeur d'initialisation de Exception : " << m << endl;
   #endif
   message = m;
 }
 
-// Exception::Exception(const Exception& e)
-// {
-//   #ifdef DEBUG
-//   cout << "Contructeur de copie" << endl;
-//   #endif
-//   message = e.message;
+Exception::Exception(const Exception& e)
+{
+  #ifdef DEBUG
+  cout << "Contructeur de copie" << endl;
+  #endif
+  message = e.message;
   
-// }
-// // Destructeur
-// Exception::~Exception()
-// {
-// 	#ifdef DEBUG
-// 	cout << "Destructeur" << endl;
-// 	#endif
-// }
+}
+// Destructeur
+Exception::~Exception()
+{
+	#ifdef DEBUG
+	cout << "Destructeur de Exception" << endl;
+	#endif
+}
 
+// setX et getX
 
-//setXXX et getXXX
+string Exception::getMessage() const
+{
+  return message;
+}
 
-string Exception::getMessage() const {return message;}
-void Exception::setMessage(string m) {message = m;}
+void Exception::setMessage(string m)
+{
+  message = m;
+}

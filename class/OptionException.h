@@ -9,17 +9,18 @@ using namespace std;
 
 class OptionException : public Exception
 {
-// private:
-// 	string mes;
+private:
+	string message;
 public:
 	
 	//contruction
 	OptionException();
-// 	OptionException(string m);
- 	//OptionException(const OptionException& e);
+	OptionException(string m);
+ 	OptionException(const OptionException& e);
+
 	//destructeur
-	//~OptionException();
 	
+	~OptionException();	
 };
 
 #endif

@@ -7,7 +7,7 @@
 #include "PasswordException.h"
 
 //Constructeur
-Employe::Employe()
+Employe::Employe() : Intervenant()
 {
   #ifdef DEBUG
   cout << "Contructeur par default" << endl;
@@ -34,7 +34,8 @@ Employe::Employe(const Employe& e)
   cout << "Contructeur de copie" << endl;
   #endif
   login = e.login;
-  motDePasse = e.motDePasse;
+  motDePasse = NULL;
+  setMotDePasse(*e.motDePasse);
   fonction = e.fonction;
   numero = e.numero;
   nom = e.nom;
@@ -47,7 +48,7 @@ Employe::Employe(const Employe& e)
 Employe::~Employe()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
+  cout << "Destructeur de Employe" << endl;
   #endif
 }
 
@@ -61,19 +62,19 @@ void Employe::setMotDePasse(string m)
   {
     if (m.size() < 6)
     {
-      //throw(PasswordException(1));
+      throw(PasswordException("INVALID_LENGTH",1));
     }
     else
     {
       if (m.find_first_of("abcdefghijklmnopqrstuvwxyz", 0) == m.npos)
       {
-        //throw(PasswordException(2));
+        throw(PasswordException("ALPHA_MISSING", 2));
       }
       else
       {
         if (m.find_first_of("0123456789", 0) == m.npos)
         {
-          //throw(PasswordException(3));
+          throw(PasswordException("DIGIT_MISSING", 3));
         }
         else
         {
@@ -86,13 +87,6 @@ void Employe::setMotDePasse(string m)
           *motDePasse = m;
         }
       }
-
-      
-
-
-
-
-     
     }
     
   }
@@ -116,7 +110,7 @@ string Employe::getMotDePasse() const
   }
   else
   {
-    //throw(PasswordException(4));
+    throw(PasswordException("NO_PASSWORD", 4));
   }
   return "";
 } 
@@ -127,7 +121,7 @@ string Employe::getFonction() const {return fonction;}
 
 Employe& Employe::operator=(const Employe& e)
 {
-  motDePasse = e.motDePasse;
+  setMotDePasse(*e.motDePasse);
   login = e.login;
   fonction = e.fonction;
   numero = e.numero;

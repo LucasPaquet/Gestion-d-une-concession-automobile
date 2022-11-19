@@ -5,7 +5,7 @@
 #include "Client.h"
 
 //Constructeur
-Client::Client()
+Client::Client() : Intervenant()
 {
   #ifdef DEBUG
   cout << "Contructeur par default" << endl;
@@ -16,7 +16,7 @@ Client::Client()
 Client::Client(string nom, string p, int n, string g) : Intervenant(nom,p,n)
 {
   #ifdef DEBUG
-  cout << "Contructeur par copie" << endl;
+  cout << "Contructeur par Initialisation" << endl;
   #endif
   gsm = g;
 }

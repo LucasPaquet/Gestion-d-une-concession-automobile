@@ -4,36 +4,33 @@
 #include "OptionException.h"
 
 //Constructeur
-OptionException::OptionException()
+OptionException::OptionException() : Exception()
 {
   #ifdef DEBUG
   cout << "Contructeur par default de OptionException" << endl;
   #endif
-  cout << "Contructeur par default de OptionException" << endl;
-  //mes = "rien";
 }
 
-// OptionException::OptionException(string m)// : Exception(m)
-// {
-//   #ifdef DEBUG
-//   cout << "Contructeur d'initialisation" << endl;
-//   #endif
-//   cout << "Contructeur par default de OptionException" << endl;
-//   mes = m;
-// }
+OptionException::OptionException(string m) : Exception(m)
+{
+  #ifdef DEBUG
+  cout << "Contructeur d'initialisation de OptionException : " << m << "<->" << message << endl;
+  #endif
+}
 
-// OptionException::OptionException(const OptionException& e)
-// {
-//   #ifdef DEBUG
-//   cout << "Contructeur de copie" << endl;
-//   #endif
-//   cout << "Contructeur par default de copie" << endl;
-// }
-// // Destructeur
-// OptionException::~OptionException()
-// {
-// 	#ifdef DEBUG
-// 	cout << "Destructeur" << endl;
-// 	#endif
-// 	cout << "Contructeur par default de OptionException" << endl;
-// }
+OptionException::OptionException(const OptionException& e)
+{
+  #ifdef DEBUG
+  cout << "Contructeur de copie de OptionException : " << e.message <<endl;
+  #endif
+  message = e.message;
+}
+// Destructeur
+OptionException::~OptionException()
+{
+	#ifdef DEBUG
+	cout << "Destructeur de OptionException" << endl;
+	#endif
+}
+
+

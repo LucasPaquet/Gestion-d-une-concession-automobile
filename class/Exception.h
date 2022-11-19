@@ -13,11 +13,11 @@ public:
 
 	Exception();
 	Exception(string m);
-	// Exception(const Exception& e);
+	Exception(const Exception& e);
 
 	//destructeur
 
-	// ~Exception();
+	~Exception();
 
 	//SetXXX et getXXX
 
