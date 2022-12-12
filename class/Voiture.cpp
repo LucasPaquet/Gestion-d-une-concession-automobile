@@ -64,9 +64,9 @@ Voiture::Voiture(const Voiture& p)
 Voiture::~Voiture()
 {
   int i;
-	#ifdef DEBUG
-	cout << "Destructeur" << endl;
-	#endif
+  #ifdef DEBUG
+  cout << "Destructeur" << endl;
+  #endif
   for(i=0;i<5;i++)
   {
     if(options[i] != NULL)
@@ -239,7 +239,7 @@ Option* Voiture::operator[](int i)
 void Voiture::Affiche() // affiche le Voiture au terminal
 {
   int i;
-	cout << "Nom de la voiture voiture : " << nom << " Modele de la voiture : " << endl;
+  cout << "Nom de la voiture voiture : " << nom << " Modele de la voiture : " << endl;
   modele.Affiche();
   for (i=0;i<5;i++)
   {
@@ -323,7 +323,7 @@ void Voiture::RetireOption(string code) // retire une option a la voiture
 
   if (i==5)
   {
-    //throw(OptionException("L'option que vous essayer de suprrimez n'est pas équipé sur la voiture"));
+    throw(OptionException("L'option que vous essayer de suprrimez n'est pas équipé sur la voiture"));
   }
 }
 

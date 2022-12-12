@@ -8,7 +8,7 @@
 Client::Client() : Intervenant()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de client " << endl;
   #endif
   gsm = "0400/00.00.00";
 }
@@ -16,7 +16,7 @@ Client::Client() : Intervenant()
 Client::Client(string nom, string p, int n, string g) : Intervenant(nom,p,n)
 {
   #ifdef DEBUG
-  cout << "Contructeur par Initialisation" << endl;
+  cout << "Contructeur par Initialisation de client" << endl;
   #endif
   gsm = g;
 }
@@ -24,7 +24,7 @@ Client::Client(string nom, string p, int n, string g) : Intervenant(nom,p,n)
 Client::Client(const Client& c)
 {
   #ifdef DEBUG
-  cout << "Contructeur de copie" << endl;
+  cout << "Contructeur de copie de client" << endl;
   #endif
   gsm = c.gsm;
   numero = c.numero;
@@ -38,7 +38,7 @@ Client::Client(const Client& c)
 Client::~Client()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
+  cout << "Destructeur de client" << endl;
   #endif
 }
 
