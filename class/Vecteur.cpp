@@ -29,7 +29,7 @@ Vecteur<T>::Vecteur(int i)
 }
 
 template <class T>
-Vecteur<T>::Vecteur(const Vecteur& vec)
+Vecteur<T>::Vecteur(const Vecteur<T>& vec)
 {
 	#ifdef DEBUG
 	cout << "Contructeur de copie de Vecteur" << endl;
