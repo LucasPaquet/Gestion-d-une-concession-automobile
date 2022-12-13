@@ -3,6 +3,8 @@
 
 #include "Modele.h"
 #include "Option.h"
+#include "OptionException.h"
+
 
 #include <string>
 using namespace std;

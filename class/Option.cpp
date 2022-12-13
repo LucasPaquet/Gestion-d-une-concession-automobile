@@ -10,7 +10,7 @@ using namespace std;
 Option::Option()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de Option" << endl;
   #endif
   code = "MDR0";
   intitule = "Vitre en rouge";
@@ -22,17 +22,38 @@ Option::Option(string c,string i, float p)
 
 {
   #ifdef DEBUG
-  cout << "Contructeur d'initialisation" << endl;
+  cout << "Contructeur d'initialisation de Option" << endl;
   #endif
-  code= c;
-  intitule =i;
-  prix = p;
+  if (c.size() ==  4)
+  {
+    code = c;
+  }
+  else
+  {
+    throw(OptionException("Code incorrect"));
+  }
+  if (i.size() !=  0)
+  {
+    intitule = i;
+  }
+  else
+  {
+    throw(OptionException("Intitule incorrect"));
+  }
+  if (p > 0)
+  {
+    prix = p;
+  }
+  else
+  {
+    throw(OptionException("Prix incorrect (il doit etre positif"));
+  }
 }
 
 Option::Option(const Option& o)
 {
   #ifdef DEBUG
-  cout << "Contructeur de copie" << endl;
+  cout << "Contructeur de copie de Option" << endl;
   #endif
   code = o.code;
   intitule = o.intitule;
@@ -43,7 +64,7 @@ Option::Option(const Option& o)
 Option::~Option()
 {
 	#ifdef DEBUG
-	cout << "Destructeur" << endl;
+	cout << "Destructeur de Option" << endl;
 	#endif
 
 }
@@ -53,9 +74,40 @@ string Option::getIntitule() const {return intitule;}
 float Option::getPrix() const{return prix;}
 
 // setteur
-void Option::setCode(string s) {code = s;}
-void Option::setIntitule(string s) {intitule = s;}
-void Option::setPrix(float p) {prix = p;}
+void Option::setCode(string s)
+{
+  if (s.size() ==  4)
+  {
+    code = s;
+  }
+  else
+  {
+    throw OptionException("Code incorrect");
+  }
+}
+void Option::setIntitule(string s) 
+{
+  if (s.size() != 0)
+  {
+    intitule = s;
+  }
+  else
+  {
+    throw(OptionException("Intitule incorrect"));
+  }
+}
+void Option::setPrix(float p) 
+{
+  if (p >= 0)
+  {
+    prix = p;
+  }
+  else
+  {
+    throw(OptionException("Prix incorrect (il doit etre positif"));
+  }
+ 
+}
 
 // surcharges operateur
 
@@ -80,23 +132,53 @@ istream& operator>>(istream& s, Option& o)
 {
   cout << "Code : ";
   getline(s,o.code);
+  if (o.code.size() != 4)
+  {
+    throw OptionException("Code incorrect");
+  }
+
   cout << "Intitule : ";
   getline(s,o.intitule);
+  if (o.intitule.size() == 0)
+  {
+    throw(OptionException("Intitule incorrect"));
+  }
+    
   cout << "prix : ";
   s >> o.prix;
+  if (o.prix < 0)
+  {
+    throw(OptionException("Prix incorrect (il doit etre positif"));
+  }
+  
   return s;
 }
 
 Option Option::operator--() // pré-incrémentation
 {
-  (*this) = (*this) - 50.0;
+  if(this->prix > 50)
+  {
+    (*this) = (*this) - 50.0;
+  }
+  else
+  {
+    throw(OptionException("Le prix est en dessous de 50 euros"));
+  }
+  
   return (*this);
 }
 
 Option Option::operator--(int)
 {
- Option temp(*this);
- (*this) = (*this) - 50.0;
+  Option temp(*this);
+  if(this->prix > 50)
+  {
+    (*this) = (*this) - 50.0;
+  }
+  else
+  {
+    throw(OptionException("Le prix est en dessous de 50 euros"));
+  }
  return temp;
 }
 

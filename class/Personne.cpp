@@ -34,10 +34,9 @@ Personne::Personne(const Personne& p)
 // Destructeur
 Personne::~Personne()
 {
-	#ifdef DEBUG
-	cout << "Destructeur" << endl;
-	#endif
-  cout << "Destructeur de Personne" << endl;
+  #ifdef DEBUG
+  cout << "Destructeur" << endl;
+  #endif
 }
 
 //getXXX et setXXX

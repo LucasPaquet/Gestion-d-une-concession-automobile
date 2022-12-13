@@ -39,7 +39,6 @@ Intervenant::~Intervenant()
   #ifdef DEBUG
   cout << "Destructeur" << endl;
   #endif
-  cout << "Destructeur de Intervenant" << endl;
 }
 
 // SetXXX et getXXX
