@@ -21,7 +21,7 @@ Employe::Employe() : Intervenant()
 Employe::Employe(string nom, string p, int n, string l, string f) : Intervenant(nom,p,n)
 {
   #ifdef DEBUG
-  cout << "Contructeur par copie" << endl;
+  cout << "Contructeur par initialisation" << endl;
   #endif
   login  = l;
   motDePasse =NULL;
@@ -50,6 +50,7 @@ Employe::~Employe()
   #ifdef DEBUG
   cout << "Destructeur de Employe" << endl;
   #endif
+  cout << "Destructeur de Employe" << endl;
 }
 
 //setXXX et getXXX
@@ -94,8 +95,12 @@ void Employe::setMotDePasse(string m)
 
 void Employe::resetMotDePasse() 
 {
-  delete motDePasse;
-  motDePasse = NULL;
+  if(motDePasse !=NULL)
+  {
+    delete motDePasse;
+    motDePasse = NULL;
+  }
+
 }
 
 void Employe::setFonction(string f) {fonction = f;}
@@ -157,11 +162,11 @@ string Employe::ToString() const
   string r;
   if (getFonction() == "Vendeur")
   {
-    r = "[A" + to_string(getNumero()) + "] " + getNom() + " " + getPrenom();
+    r = "[V" + to_string(getNumero()) + "] " + getNom() + " " + getPrenom();
   }
   else
   {
-    r = "[V" + to_string(getNumero()) + "] " + getNom() + " " + getPrenom();
+    r = "[A" + to_string(getNumero()) + "] " + getNom() + " " + getPrenom();
   }
   return r;
 }

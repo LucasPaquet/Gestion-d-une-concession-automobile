@@ -2,6 +2,7 @@
 #define OPTION_H
 
 #include "OptionException.h"
+
 #include <string>
 
 using namespace std;
@@ -40,7 +41,6 @@ public:
   Option operator--(int);
 
   //fonctions
-
   void Affiche();
 };
 

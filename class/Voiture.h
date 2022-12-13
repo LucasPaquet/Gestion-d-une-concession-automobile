@@ -5,6 +5,7 @@
 #include "Option.h"
 #include "OptionException.h"
 
+
 #include <string>
 using namespace std;
 class Voiture
@@ -20,7 +21,6 @@ private:
 
 public:
   //constructeur
-
   Voiture();
   Voiture(string nom,const Modele& modele);
   Voiture(const Voiture& p);

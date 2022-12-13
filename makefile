@@ -2,6 +2,7 @@
 
 CLASS =./class
 OBJECT =./object
+
 Test6:	Test6.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o
 	echo Creation de Test6
 	g++ Test6.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o -o Test6 #-D DEBUG
@@ -57,6 +58,7 @@ $(OBJECT)/Iterateur.o:	$(CLASS)/Iterateur.cpp $(CLASS)/Iterateur.h
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1
 	g++ Test1.cpp -I $(CLASS) $(OBJECT)/Modele.o -o Test1
+
 Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test2b
 	g++ Test2b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
@@ -76,6 +78,7 @@ Test5:	Test5.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJ
 	echo Creation de Test5
 	g++ Test5.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o -o Test5 #-D DEBUG
 
+
 clean:
 	echo Suppression des .o
 	rm -f $(OBJECT)/*.o
@@ -90,4 +93,5 @@ clobber:
 	rm -f Test4
 	rm -f Test5
 	rm -f Test6
+
 
