@@ -343,3 +343,86 @@ float Voiture::getPrix()
   }
   return prixTotal;
 }
+
+// Save() permettant d’enregistrer dans un fichier toutes les données de la voiture (nom du projet,
+// modèle et options) et cela champ par champ. Ce fichier sera un fichier binaire (utilisation des
+// méthodes write et read) dont le nom sera obtenu par la concaténation du nom du projet avec
+// l’extension « .car ». Exemple : « Projet208_MrDugenou.car ».
+
+void Voiture::Save()//(ofstream fichier)
+{
+  #ifdef DEBUG
+  cout << "Voiture : Save" << endl;
+  #endif
+  cout << "Voiture : Save" << endl;
+  Option* optionp=NULL;
+  int taille = (*this).nom.size();
+  string NomFichier = (*this).nom + ".car";
+  ofstream fichier(NomFichier.data(), ios::out);
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.write((char*)&taille,sizeof(int)); // nom
+  fichier.write((char*)(*this).nom.data(),taille*sizeof(char));
+
+  (*this).modele.Save(fichier); // modele
+
+  
+  for(int i=0;i<5;i++)
+  {
+    optionp = (*this).getOption(i);
+    if (optionp != NULL)
+    {
+      optionp->Save(fichier);
+    }
+  }
+  fichier.close();
+}
+
+// permettant de charger toutes les données relatives à une voiture
+// enregistrée dans le fichier dont le nom est passé en paramètre.
+
+void Voiture::Load(string NomFichier)
+{
+  #ifdef DEBUG
+  cout << "Voiture : Load" << endl;
+  #endif
+  cout << "Voiture : Load" << endl;
+
+  Option* opt;
+
+  int t;
+
+
+  ifstream fichier(NomFichier,ios::in);
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.read((char*)&t,sizeof(int)); // nom
+  (*this).nom.resize(t);
+  fichier.read((char*)(*this).nom.data(),t*sizeof(char)); 
+
+  (*this).modele.Load(fichier); // modele
+  
+
+  
+  for(int i=0;i<5;i++)
+  {
+    if (fichier)
+    {
+      // (*opt).Load(fichier);
+      // (*this).setOption(opt, i);
+      // optionp=(*this).getOption(i);
+      // optionp = &opt[i];
+      // cout << &opt[i] << endl;
+    }    
+  }
+  
+  fichier.close();
+}
+

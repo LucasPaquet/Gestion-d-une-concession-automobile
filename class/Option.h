@@ -4,6 +4,8 @@
 #include "OptionException.h"
 #include <string>
 
+#include <fstream>
+
 using namespace std;
 
 class ErrCalcul {};
@@ -42,6 +44,8 @@ public:
   //fonctions
 
   void Affiche();
+  void Save(ofstream& fichier);
+  void Load(ifstream& fichier);
 };
 
 #endif
