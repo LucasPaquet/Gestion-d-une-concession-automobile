@@ -356,7 +356,7 @@ void Voiture::Save()//(ofstream fichier)
   #endif
   cout << "Voiture : Save" << endl;
   Option* optionp=NULL;
-  int taille = (*this).nom.size();
+  int taille = (*this).nom.size(), nbOpt = 0;
   string NomFichier = (*this).nom + ".car";
   ofstream fichier(NomFichier.data(), ios::out);
   if (!fichier)
@@ -369,6 +369,17 @@ void Voiture::Save()//(ofstream fichier)
 
   (*this).modele.Save(fichier); // modele
 
+
+  for(int i=0;i<5;i++) // boucle pour connaitre le nombre d'option et l'ecrire avant les options
+  {
+    optionp = (*this).getOption(i);
+    if (optionp != NULL)
+    {
+      nbOpt++;
+    }
+  }
+
+  fichier.write((char*)&nbOpt,sizeof(int));
   
   for(int i=0;i<5;i++)
   {
@@ -394,7 +405,7 @@ void Voiture::Load(string NomFichier)
   Option* opt;
 
   int t;
-
+  int nbOpt;
 
   ifstream fichier(NomFichier,ios::in);
 
@@ -409,18 +420,17 @@ void Voiture::Load(string NomFichier)
 
   (*this).modele.Load(fichier); // modele
   
+  fichier.read((char*)&nbOpt,sizeof(int));  // on lit le nom de d'option qu'il y a dans la save
 
-  
   for(int i=0;i<5;i++)
   {
-    if (fichier)
-    {
-      // (*opt).Load(fichier);
-      // (*this).setOption(opt, i);
-      // optionp=(*this).getOption(i);
-      // optionp = &opt[i];
-      // cout << &opt[i] << endl;
-    }    
+    delete options[i];
+  }
+  
+  for(int i=0;i<nbOpt;i++)
+  {
+    options[i]= new Option;
+    options[i]->Load(fichier);
   }
   
   fichier.close();
