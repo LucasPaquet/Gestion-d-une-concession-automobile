@@ -53,7 +53,8 @@ Vecteur<T>::~Vecteur()
 	#ifdef DEBUG
 	cout << "Destructeur de Vecteur" << endl;
 	#endif
-	delete[] v;
+	if(v!= NULL)
+		delete[] v;
 }
 
 //operateur de surcharge
@@ -82,9 +83,15 @@ T& Vecteur<T>::operator[](int ref)
 //Fonction
 
 template <class T>
-void Vecteur<T>::insere(const T & val) // permettant d’insérer un nouvel élément à la fin du vecteur, c’est-à-dire à la première case libre.
+void Vecteur<T>::insere(const T& val) // permettant d’insérer un nouvel élément à la fin du vecteur, c’est-à-dire à la première case libre.
 {
-	v[_size] = val;
+	#ifdef DEBUG
+	cout << "Insertion de Vecteur" << v[size()] << endl;
+	cout << "--------------" << endl;
+	cout << "Insertion de Vecteur" << val << endl;
+	#endif
+	cout << "Insertion de Vecteur" << val << endl;
+	v[size()]=val;
 	_size++;
 }
 
@@ -92,7 +99,7 @@ template <class T>
 void Vecteur<T>::Affiche() // permettant de parcourir le vecteur et d’afficher chaque élément de celui-ci.
 {
 	int i;
-	for(i=0;i<_size;i++)
+	for(i=0;i<size();i++)
 	{
 		cout << "N°" << i << " : " << v[i] << endl;
 	}
@@ -133,3 +140,6 @@ T Vecteur<T>::retire(int ind)
 
 template class Vecteur<int>;
 template class Vecteur<Client>;
+template class Vecteur<Modele>;
+template class Vecteur<Option>;
+template class Vecteur<Employe>;

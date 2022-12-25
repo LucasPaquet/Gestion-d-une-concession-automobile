@@ -3,9 +3,12 @@
 CLASS =./class
 OBJECT =./object
 
-Test7:	Test7.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o
-	echo Creation de Test7
-	g++ Test7.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o -o Test7 #-D DEBUG
+Test8a:	Test8a.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
+	echo Creation de Test8a
+	g++ Test8a.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8a #-D DEBUG
+Test8b:	Test8b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
+	echo Creation de Test8b
+	g++ Test8b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8b #-D DEBUG
 
 $(OBJECT)/Modele.o:	$(CLASS)/Modele.cpp $(CLASS)/Modele.h
 	echo Creation Modele.o
@@ -55,6 +58,10 @@ $(OBJECT)/Iterateur.o:	$(CLASS)/Iterateur.cpp $(CLASS)/Iterateur.h
 	echo Creation Iterateur.o
 	g++ $(CLASS)/Iterateur.cpp -I $(CLASS) -c -o $(OBJECT)/Iterateur.o #-D DEBUG
 
+$(OBJECT)/Garage.o:	$(CLASS)/Garage.cpp $(CLASS)/Garage.h
+	echo Creation Garage.o
+	g++ $(CLASS)/Garage.cpp -I $(CLASS) -c -o $(OBJECT)/Garage.o #-D DEBUG
+
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1
 	g++ Test1.cpp -I $(CLASS) $(OBJECT)/Modele.o -o Test1
@@ -79,6 +86,9 @@ Test5:	Test5.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJ
 Test6:	Test6.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o
 	echo Creation de Test6
 	g++ Test6.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o -o Test6 #-D DEBUG
+Test7:	Test7.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o
+	echo Creation de Test7
+	g++ Test7.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o -o Test7 #-D DEBUG
 
 clean:
 	echo Suppression des .o
@@ -95,6 +105,8 @@ clobber:
 	rm -f Test5
 	rm -f Test6
 	rm -f Test7
+	rm -f Test8a
+	rm -f Test8b
 reset:
 	rm -f Projet_208_MrLagalere.car
 	rm -f Peugeot2008.mod

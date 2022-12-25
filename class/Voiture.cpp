@@ -435,4 +435,3 @@ void Voiture::Load(string NomFichier)
   
   fichier.close();
 }
-

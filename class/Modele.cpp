@@ -12,7 +12,7 @@ using namespace std;
 Modele::Modele()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de modele" << endl;
   #endif
   nom =NULL;
   setNom("Voiture sans nom");
@@ -48,12 +48,11 @@ Modele::Modele(const Modele& p)
 Modele::~Modele()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
+  cout << "Destructeur de modele" << endl;
   //this->Affiche();
   #endif
-  if (nom)
-    delete[] nom;
-
+  // if (nom)
+  //   delete [] nom;
 }
 
 //getX et SetX
@@ -69,7 +68,7 @@ void Modele::setNom(const char * c)
   {
     if (nom)
     {
-      delete[] nom;  
+      delete [] nom;  
     }
     
     nom = new char[strlen(c)+1];

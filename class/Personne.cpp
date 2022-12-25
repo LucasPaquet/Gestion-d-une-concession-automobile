@@ -7,7 +7,7 @@
 Personne::Personne()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de Personne" << endl;
   #endif
   nom = "Sans nom";
   prenom = "Sans prenom";
@@ -16,7 +16,7 @@ Personne::Personne()
 Personne::Personne(string n,string p)
 {
   #ifdef DEBUG
-  cout << "Contructeur d'initialisation" << endl;
+  cout << "Contructeur d'initialisation de Personne" << endl;
   #endif
   nom = n;
   prenom = p;
@@ -25,7 +25,7 @@ Personne::Personne(string n,string p)
 Personne::Personne(const Personne& p)
 {
   #ifdef DEBUG
-  cout << "Contructeur de copie" << endl;
+  cout << "Contructeur de copie de Personne" << endl;
   #endif
   nom = p.nom;
   prenom = p.prenom;
@@ -35,7 +35,7 @@ Personne::Personne(const Personne& p)
 Personne::~Personne()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
+  cout << "Destructeur de Personne" << endl;
   #endif
 }
 
