@@ -3,6 +3,9 @@ using namespace std;
 
 #include "Garage.h"
 
+const string Employe::ADMINISTRATIF = "Administratif";
+const string Employe::VENDEUR = "Vendeur";
+
 int main()
 {
   // Creation du Garage

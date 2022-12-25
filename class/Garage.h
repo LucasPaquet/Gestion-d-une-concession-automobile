@@ -9,18 +9,21 @@
 #include "Option.h"
 #include "Client.h"
 #include "Vecteur.h"
+#include "Voiture.h"
 
 using namespace std;
 
 class Garage
 {
-	
+
 private:
 	Vecteur<Client> clients; // ou Vecteur<Client>
 	Vecteur<Employe> employes; // ou Vecteur<Employe>
 	Vecteur<Modele> modeles;
 	Vecteur<Option> options;
-public:
+
+	static Garage instance; // singleton de l'application
+
 	//Constructeur
 
 	Garage();
@@ -28,6 +31,19 @@ public:
 	//Destructeur
 
 	~Garage();
+
+	// surcharge operateur
+
+	Garage& operator=(const Garage& g);
+
+	static Voiture projetEnCours;
+
+public:
+	
+	static Garage& getInstance();
+	static Voiture& getProjetEnCours();
+
+	static void resetProjetEnCours();
 
 	//modele
 

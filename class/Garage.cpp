@@ -1,7 +1,7 @@
 
 #include "Garage.h"
 
-static int numCourant = 0;
+static int numCourant = 1;
 
 //Constructeur
 Garage::Garage()
@@ -32,10 +32,10 @@ void Garage::afficheModelesDisponibles()
     modeles.Affiche();
 }
 
-// Modele Garage::getModele(int indice)
-// {
-
-// }
+Modele Garage::getModele(int indice)
+{
+  return modeles[indice];
+}
 
 
 // Option
@@ -50,10 +50,10 @@ void Garage::afficheOptionsDisponibles()
   options.Affiche();
 }
 
-// Option Garage::getOption(int indice)
-// {
-
-// }
+Option Garage::getOption(int indice)
+{
+  return options[indice];
+}
 
 // Fonction Client
 
@@ -116,4 +116,21 @@ void Garage::supprimeEmployeParNumero(int num)
       employes.retire(i);
     }
   }
+}
+
+Garage& Garage::getInstance()
+{
+  return instance;
+}
+Garage Garage::instance = Garage();
+
+Voiture& Garage::getProjetEnCours()
+{
+  return projetEnCours;
+}
+Voiture Garage::projetEnCours = Voiture();
+
+void Garage::resetProjetEnCours()
+{
+  projetEnCours = Voiture();
 }
