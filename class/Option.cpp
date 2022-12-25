@@ -63,10 +63,9 @@ Option::Option(const Option& o)
 // Destructeur
 Option::~Option()
 {
-	#ifdef DEBUG
-	cout << "Destructeur de Option" << endl;
-	#endif
-
+  #ifdef DEBUG
+  cout << "Destructeur de Option" << endl;
+  #endif
 }
 //getteur
 string Option::getCode() const {return code;}
@@ -203,6 +202,62 @@ void Option::setPrix(float p) {prix = p;}
 void Option::Affiche() // affiche l'Option au terminal
 {
 
-	cout << "Code : " << code << ", Intitule : " << intitule << ", prix : " << prix << endl;
+  cout << "Code : " << code << ", Intitule : " << intitule << ", prix : " << prix << endl;
   
 }
+void Option::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Option : Save" << endl;
+  #endif
+  cout << "Option : Save" << endl;
+
+  int taille = (*this).code.size();
+  int tailleI = (*this).intitule.size();
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.write((char*)&taille,sizeof(int)); // on enregistre le nombre de caractere de code
+  fichier.write((char*)(*this).code.data(),taille*sizeof(char));
+
+  fichier.write((char*)&tailleI,sizeof(int)); // on enregistre le nombre de caractere de intitule
+  fichier.write((char*)(*this).intitule.data(),tailleI*sizeof(char));
+
+  fichier.write((char*)&(*this).prix,sizeof(float));
+  
+
+
+}
+
+// permettant de charger toutes les données relatives à une voiture
+// enregistrée dans le fichier dont le nom est passé en paramètre.
+void Option::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Option : Load" << endl;
+  #endif
+  cout << "Option : Load" << endl;
+  int t;
+  int t2;
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.read((char*)&t,sizeof(int)); // Lecture de code
+  (*this).code.resize(t);
+  fichier.read((char*)(*this).code.data(),t*sizeof(char));
+  
+
+  fichier.read((char*)&t2,sizeof(int)); // Lecture de intitule
+  (*this).intitule.resize(t2);
+  fichier.read((char*)(*this).intitule.data(),t2*sizeof(char));
+
+  fichier.read((char*)&(*this).prix,sizeof(float)); // Lecture de prix
+}
+
+

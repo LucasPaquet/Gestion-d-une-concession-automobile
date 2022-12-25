@@ -1,6 +1,8 @@
 #ifndef MODELE_H
 #define MODELE_H
 
+#include <fstream>
+
 using namespace std;
 
 enum Moteur{Essence, Diesel, Electrique, Hybride};
@@ -36,6 +38,8 @@ public:
   void setPrixDeBase(float ); 
   //fonctions
   void Affiche();
+  void Save(ofstream& fichier);
+  void Load(ifstream& fichier);
 };
 
 #endif

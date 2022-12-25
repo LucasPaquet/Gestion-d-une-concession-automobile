@@ -43,7 +43,7 @@ public:
 
   // //surcharge des operateur 
 
-  Employe& operator=(const Employe& c);
+  Employe& operator=(const Employe& e);
 
   // //Fonction
  

@@ -4,6 +4,9 @@
 #include <string>
 
 #include "Client.h"
+#include "Modele.h"
+#include "Option.h"
+#include "Employe.h"
 
 using namespace std;
 

@@ -7,6 +7,8 @@
 
 
 #include <string>
+#include <fstream>
+
 using namespace std;
 class Voiture
 {
@@ -58,6 +60,8 @@ public:
   void AjouteOption(const Option & option);
   void RetireOption(string code);
   float getPrix();
+  void Save();
+  void Load(string NomFichier);
 
 };
 

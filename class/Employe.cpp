@@ -10,7 +10,7 @@
 Employe::Employe() : Intervenant()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de employe" << endl;
   #endif
   login = "paquet";
   motDePasse = NULL;
@@ -21,21 +21,26 @@ Employe::Employe() : Intervenant()
 Employe::Employe(string nom, string p, int n, string l, string f) : Intervenant(nom,p,n)
 {
   #ifdef DEBUG
-  cout << "Contructeur par initialisation" << endl;
+
+  cout << "Contructeur initialisation de employe" << endl;
+
   #endif
-  login  = l;
+  setLogin(l);
   motDePasse =NULL;
-  fonction = f;
+  setFonction(f);
 }
 
 Employe::Employe(const Employe& e)
 {
   #ifdef DEBUG
-  cout << "Contructeur de copie" << endl;
+  cout << "Contructeur de copie de employe" << endl;
   #endif
   login = e.login;
   motDePasse = NULL;
-  setMotDePasse(*e.motDePasse);
+  if(e.motDePasse !=NULL)
+        setMotDePasse(e.getMotDePasse());
+    else
+        resetMotDePasse();
   fonction = e.fonction;
   numero = e.numero;
   nom = e.nom;
@@ -126,14 +131,23 @@ string Employe::getFonction() const {return fonction;}
 
 Employe& Employe::operator=(const Employe& e)
 {
-  setMotDePasse(*e.motDePasse);
+  #ifdef DEBUG
+  cout << "operator= de Employe" << endl;
+  #endif
   login = e.login;
   fonction = e.fonction;
   numero = e.numero;
   nom = e.nom;
   prenom = e.prenom;
 
-  return(*this);
+  setLogin(e.getLogin());
+  if(e.motDePasse !=NULL)
+        setMotDePasse(e.getMotDePasse());
+    else
+        resetMotDePasse();
+  setFonction(e.getFonction());
+
+  return *this;
 }
 
 ostream& operator<<(ostream& s,const Employe& e)

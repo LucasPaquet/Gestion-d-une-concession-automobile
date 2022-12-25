@@ -8,7 +8,7 @@
 Intervenant::Intervenant() : Personne()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de Intervenant" << endl;
   #endif
   numero = 0;
 }
@@ -24,7 +24,7 @@ Intervenant::Intervenant(string nom, string prenom, int n) : Personne(nom, preno
 Intervenant::Intervenant(const Intervenant& i)
 {
   #ifdef DEBUG
-  cout << "Contructeur de copie" << endl;
+  cout << "Contructeur de copie de Intervenant" << endl;
   #endif
   nom = i.nom;
   prenom = i.prenom;
@@ -37,7 +37,7 @@ Intervenant::Intervenant(const Intervenant& i)
 Intervenant::~Intervenant()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
+  cout << "Destructeur de Intervenant" << endl;
   #endif
 }
 

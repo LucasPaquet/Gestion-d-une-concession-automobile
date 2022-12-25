@@ -12,7 +12,7 @@ using namespace std;
 Modele::Modele()
 {
   #ifdef DEBUG
-  cout << "Contructeur par default" << endl;
+  cout << "Contructeur par default de modele" << endl;
   #endif
   nom =NULL;
   setNom("Voiture sans nom");
@@ -50,12 +50,11 @@ Modele::Modele(const Modele& p)
 Modele::~Modele()
 {
   #ifdef DEBUG
-  cout << "Destructeur" << endl;
-  this->Affiche();
+  cout << "Destructeur de modele" << endl;
+  //this->Affiche();
   #endif
-  if (nom)
-    delete[] nom;
-
+  // if (nom)
+  //   delete [] nom;
 }
 //getX et SetX
 
@@ -71,7 +70,7 @@ void Modele::setNom(const char * c)
     if (nom)
 
     {
-      delete[] nom;  
+      delete [] nom;  
     }
     
     nom = new char[strlen(c)+1];
@@ -149,4 +148,58 @@ void Modele::Affiche() // affiche le modele au terminal
     case Hybride: cout << "Hybride" << endl;
       break;
   }
+}
+
+
+
+void Modele::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Modele : Save" << endl;
+  #endif
+  cout << "Modele : Save" << endl;
+  int taille = strlen((*this).nom);
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.write((char*)&taille,sizeof(int)); // nom
+  fichier.write((char*)(*this).nom,taille*sizeof(char));
+
+
+  fichier.write((char*)&(*this).puissance,sizeof(int)); // puissance
+
+  fichier.write((char*)&(*this).moteur,sizeof(Moteur)); // moteur
+
+  fichier.write((char*)&(*this).prixDeBase,sizeof(float)); // prixDeBase
+
+}
+
+
+void Modele::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Modele : Load" << endl;
+  #endif
+  cout << "Modele : Load" << endl;
+  int t;
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.read((char*)&t,sizeof(int)); // nom
+  delete[] (*this).nom;
+  (*this).nom = new char[t+1];
+  fichier.read((char*)(*this).nom,t*sizeof(char));
+
+  fichier.read((char*)&(*this).puissance,sizeof(int)); // puissance
+
+  fichier.read((char*)&(*this).moteur,sizeof(Moteur)); // moteur
+
+  fichier.read((char*)&(*this).prixDeBase,sizeof(float)); // prix de base
+
+
 }
