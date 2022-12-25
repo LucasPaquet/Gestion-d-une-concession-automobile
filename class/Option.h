@@ -2,6 +2,7 @@
 #define OPTION_H
 
 #include "OptionException.h"
+
 #include <string>
 
 #include <fstream>
@@ -42,7 +43,6 @@ public:
   Option operator--(int);
 
   //fonctions
-
   void Affiche();
   void Save(ofstream& fichier);
   void Load(ifstream& fichier);
