@@ -2,10 +2,30 @@
 
 CLASS =./class
 OBJECT =./object
+CO=g++
+OBJS_QT = $(OBJECT)/main.o $(OBJECT)/applicgaragewindow.o $(OBJECT)/moc_applicgaragewindow.o $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
+PROGRAMS = ApplicGarage
+QT = InterfaceQt
 
-Test8b:	Test8b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
-	echo Creation de Test8b
-	g++ Test8b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8b #-D DEBUG
+all:	$(QT)/$(PROGRAMS) $(OBJECT)/applicgaragewindow.o
+
+$(QT)/ApplicGarage:	$(OBJS_QT)
+		echo Creation de ApplicGarage...
+		$(CO) -Wl,-O1 -o ApplicGarage $(OBJS_QT) /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Core.so /usr/lib64/libGL.so -lpthread 					
+		#rm main.o
+
+$(OBJECT)/main.o:	$(QT)/main.cpp
+		echo Creation de main.o
+		$(CO) -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ -o $(OBJECT)/main.o $(QT)/main.cpp
+
+$(OBJECT)/applicgaragewindow.o:	$(QT)/applicgaragewindow.cpp $(QT)/applicgaragewindow.h $(QT)/ui_applicgaragewindow.h $(OBJECT)/Garage.o
+		echo Creation de applicgaragewindow.o
+		$(CO) -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ -I $(CLASS) -o $(OBJECT)/applicgaragewindow.o $(QT)/applicgaragewindow.cpp
+
+$(OBJECT)/moc_applicgaragewindow.o:	$(QT)/moc_applicgaragewindow.cpp $(QT)/applicgaragewindow.h
+		echo Creation de moc_applicgaragewindow.o
+		$(CO) -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ -o $(OBJECT)/moc_applicgaragewindow.o $(QT)/moc_applicgaragewindow.cpp
+
 
 $(OBJECT)/Modele.o:	$(CLASS)/Modele.cpp $(CLASS)/Modele.h
 	echo Creation Modele.o
@@ -89,6 +109,9 @@ Test7:	Test7.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJ
 Test8a:	Test8a.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
 	echo Creation de Test8a
 	g++ Test8a.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8a #-D DEBUG
+Test8b:	Test8b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
+	echo Creation de Test8b
+	g++ Test8b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8b #-D DEBUG
 
 clean:
 	echo Suppression des .o
@@ -107,6 +130,7 @@ clobber:
 	rm -f Test7
 	rm -f Test8a
 	rm -f Test8b
+	@rm -f tags $(PROGRAMS) *~ *.log
 reset:
 	rm -f Projet_208_MrLagalere.car
 	rm -f Peugeot2008.mod
