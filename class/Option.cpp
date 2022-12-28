@@ -46,7 +46,7 @@ Option::Option(string c,string i, float p)
   }
   else
   {
-    throw(OptionException("Prix incorrect (il doit etre positif"));
+    throw(OptionException("Prix incorrect (il doit etre positif)"));
   }
 }
 
@@ -103,7 +103,7 @@ void Option::setPrix(float p)
   }
   else
   {
-    throw(OptionException("Prix incorrect (il doit etre positif"));
+    throw(OptionException("Prix incorrect (il doit etre positif)"));
   }
  
 }
@@ -147,7 +147,7 @@ istream& operator>>(istream& s, Option& o)
   s >> o.prix;
   if (o.prix < 0)
   {
-    throw(OptionException("Prix incorrect (il doit etre positif"));
+    throw(OptionException("Prix incorrect (il doit etre positif)"));
   }
   
   return s;

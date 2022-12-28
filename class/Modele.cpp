@@ -19,8 +19,9 @@ Modele::Modele()
   puissance = 100;
   moteur = Electrique;
   prixDeBase = 12500.0;
+  image = "InterfaceQt/images/208.jpg";
 }
-Modele::Modele(const char * c, int i, Moteur m,float f)
+Modele::Modele(const char * c, int i, Moteur m,float f, string s)
 {
   #ifdef DEBUG
   cout << "Contructeur d'initialisation" << endl;
@@ -30,6 +31,7 @@ Modele::Modele(const char * c, int i, Moteur m,float f)
   puissance = i;
   moteur = m;
   prixDeBase = f;
+  image = s;
 }
 Modele::Modele(const Modele& p)
 {
@@ -41,6 +43,7 @@ Modele::Modele(const Modele& p)
   puissance = p.puissance;
   moteur = p.moteur;
   prixDeBase = p.prixDeBase;
+  image = p.image;
 }
 
 
@@ -62,6 +65,7 @@ const char * Modele::getNom() const {return nom;}
 int Modele::getPuissance() const {return puissance;}
 Moteur Modele::getMoteur() const {return moteur;}
 float Modele::getPrixDeBase() const {return prixDeBase;}
+string Modele::getImage() const {return image;}
 
 void Modele::setNom(const char * c) 
 {
@@ -89,6 +93,7 @@ void Modele::setPrixDeBase(float p)
   if (prixDeBase >= 0)
     prixDeBase = p;
 }
+void Modele::setImage(string s) {image = s;}
 
 
 // operateur de surchages
