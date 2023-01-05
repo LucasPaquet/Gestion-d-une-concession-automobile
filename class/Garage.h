@@ -12,6 +12,7 @@
 #include "Voiture.h"
 #include "Modele.h"
 
+
 #include <string>
 
 using namespace std;
@@ -43,6 +44,7 @@ private:
 
 public:
 	
+	Employe* employe;
 	static Garage& getInstance();
 	static Voiture& getProjetEnCours();
 
@@ -70,6 +72,8 @@ public:
 	void afficheClients();
 	void supprimeClientParIndice(int ind);
 	void supprimeClientParNumero(int num);
+	Client getClient(int indice);
+	int getSizeClient();
 
 	//Employe
 
@@ -77,7 +81,10 @@ public:
 	void afficheEmployes();
 	void supprimeEmployeParIndice(int ind);
 	void supprimeEmployeParNumero(int num);
-
+	Employe getEmploye(int indice);
+	Employe* getEmployePt(int indice);
+	int getSizeEmploye();
+    
 };
 
 

@@ -5,6 +5,7 @@
 
 #include "Intervenant.h"
 #include "Personne.h"
+#include "PasswordException.h"
 
 using namespace std;
 

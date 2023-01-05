@@ -2,6 +2,7 @@
 #include "Garage.h"
 
 static int numCourant = 1;
+static Employe * logEmp;
 
 //Constructeur
 Garage::Garage()
@@ -9,6 +10,7 @@ Garage::Garage()
   #ifdef DEBUG
   cout << "Contructeur par default de Garage" << endl;
   #endif
+  ajouteEmploye("ADMIN", "ADMIN", "ADMIN", "Administratif");
 }
 
 //Destructeur
@@ -208,6 +210,13 @@ void Garage::supprimeClientParNumero(int num)
   } 
 }
 
+Client Garage::getClient(int indice)
+{
+  return clients[indice];
+}
+
+int Garage::getSizeClient(){ return clients.size(); }
+
 // Fonction employe
 
 void Garage::ajouteEmploye(string nom,string prenom,string login,string fonction)
@@ -242,6 +251,18 @@ void Garage::supprimeEmployeParNumero(int num)
     }
   }
 }
+
+Employe Garage::getEmploye(int indice)
+{
+  return employes[indice];
+}
+Employe* Garage::getEmployePt(int indice)
+{
+  return &employes[indice];
+}
+int Garage::getSizeEmploye(){ return employes.size(); }
+
+
 
 Garage& Garage::getInstance()
 {
