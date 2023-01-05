@@ -1,7 +1,7 @@
 #ifndef GARAGE_H
 #define GARAGE_H
 
-#include <string>
+#include <string.h>
 #include <iostream>
 
 #include "Employe.h"
@@ -10,6 +10,9 @@
 #include "Client.h"
 #include "Vecteur.h"
 #include "Voiture.h"
+#include "Modele.h"
+
+#include <string>
 
 using namespace std;
 
@@ -50,12 +53,16 @@ public:
 	void ajouteModele(const Modele & m);
 	void afficheModelesDisponibles();
 	Modele getModele(int indice);
+	void importeModeles(string nomFichier);
+	int getSizeModele();
 
 	// Option
 
 	void ajouteOption(const Option & o);
 	void afficheOptionsDisponibles();
 	Option getOption(int indice);
+	void importeOptions(string nomFichier);
+	int getSizeOption();
 
 	//Client
 
@@ -70,6 +77,7 @@ public:
 	void afficheEmployes();
 	void supprimeEmployeParIndice(int ind);
 	void supprimeEmployeParNumero(int num);
+
 };
 
 

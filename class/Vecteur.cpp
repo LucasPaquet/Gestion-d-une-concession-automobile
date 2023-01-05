@@ -12,8 +12,8 @@ Vecteur<T>::Vecteur()
 	#ifdef DEBUG
 	cout << "Contructeur par default de Vecteur" << endl;
 	#endif
-	v = new T[10];
-	_sizeMax = 10;
+	v = new T[30];
+	_sizeMax = 30;
 	_size = 0;
 }
 

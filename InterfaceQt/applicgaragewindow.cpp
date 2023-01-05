@@ -74,9 +74,19 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
 
     // Importation des modeles (étape 10)
     // TO DO
-
+    Garage::getInstance().importeModeles("Modeles.csv");
+    for (int i = 0; i < Garage::getInstance().getSizeModele(); i++)
+    {
+        cout << Garage::getInstance().getModele(i) << endl;
+        ajouteModeleDisponible(Garage::getInstance().getModele(i).getNom(),Garage::getInstance().getModele(i).getPrixDeBase());
+    }
     // Importation des options (étape 10)
     // TO DO
+    Garage::getInstance().importeOptions("Options.csv");
+    for (int i = 0; i < Garage::getInstance().getSizeOption(); i++)
+    {
+        ajouteOptionDisponible(Garage::getInstance().getOption(i).getIntitule().c_str(),Garage::getInstance().getOption(i).getPrix());
+    }
 
     // Ouverture (et/ou creation) du fichier Garage.data (étape 12)
     // TO DO
@@ -738,7 +748,7 @@ void ApplicGarageWindow::on_pushButtonChoisirModele_clicked()
         Garage::getProjetEnCours().setModele(Garage::getInstance().getModele(ind));
         voiture = Garage::getProjetEnCours();
         setModele(voiture.getModele().getNom(),voiture.getModele().getPuissance(),voiture.getModele().getMoteur(),voiture.getModele().getPrixDeBase(),voiture.getModele().getImage());
-        // cout << "DEBUG : " << voiture.getModele().getImage() << endl;
+        cout << "DEBUG : " << voiture.getModele().getImage() << endl;
         setPrix(voiture.getPrix());
     }   
     else
