@@ -19,7 +19,7 @@ Modele::Modele()
   puissance = 100;
   moteur = Electrique;
   prixDeBase = 12500.0;
-  image = "InterfaceQt/images/208.jpg";
+  image = "208.jpg";
 }
 Modele::Modele(const char * c, int i, Moteur m,float f, string s)
 {
@@ -100,7 +100,7 @@ void Modele::setImage(string s) {image = s;}
 
 ostream& operator<<(ostream& s,const Modele& m)
 {
-  s << "Nom : "<< m.nom << ", puissance : " << m.puissance << ", Prix de base : " << m.prixDeBase << ", Moteur : ";
+  s << "Nom : "<< m.nom << ", puissance : " << m.puissance << ", Prix de base : " << m.prixDeBase << ", Image : " << m.image <<", Moteur : ";
   switch(m.moteur)
   {
     case Essence: s << "Essence" << endl;
@@ -141,7 +141,7 @@ istream& operator>> (istream& s, Modele& m)
 
 void Modele::Affiche() // affiche le modele au terminal
 {
-  cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase << ", Moteur : ";
+  cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase <<", Image : " << image << ", Moteur : ";
   switch(moteur)
   {
     case Essence: cout << "Essence" << endl;

@@ -72,7 +72,7 @@ void Employe::setMotDePasse(string m)
     }
     else
     {
-      if (m.find_first_of("abcdefghijklmnopqrstuvwxyz", 0) == m.npos)
+      if (m.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 0) == m.npos)
       {
         throw(PasswordException("ALPHA_MISSING", 2));
       }

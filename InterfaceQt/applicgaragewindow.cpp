@@ -74,14 +74,30 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
 
     // Importation des modeles (étape 10)
     // TO DO
-
+    Garage::getInstance().importeModeles("Modeles.csv");
+    for (int i = 0; i < Garage::getInstance().getSizeModele(); i++)
+    {
+        cout << Garage::getInstance().getModele(i) << endl;
+        ajouteModeleDisponible(Garage::getInstance().getModele(i).getNom(),Garage::getInstance().getModele(i).getPrixDeBase());
+    }
     // Importation des options (étape 10)
     // TO DO
+    Garage::getInstance().importeOptions("Options.csv");
+    for (int i = 0; i < Garage::getInstance().getSizeOption(); i++)
+    {
+        ajouteOptionDisponible(Garage::getInstance().getOption(i).getIntitule().c_str(),Garage::getInstance().getOption(i).getPrix());
+    }
+
 
     // Ouverture (et/ou creation) du fichier Garage.data (étape 12)
     // TO DO
 
-    setRole();  // acces a tout pour l'instant
+
+    for (int i=0; i < Garage::getInstance().getSizeEmploye(); i++)// pour que ADMIN soit afficher
+    {
+        ajouteTupleTableEmployes(Garage::getInstance().getEmploye(i).Tuple());
+    }
+    setRole(0);  // acces a tout pour l'instant
 
     //******* EXEMPLES (A SUPPRIMER) *******************************************
     // setTableOption(1,"XY08","Toit ouvrant",850.0);
@@ -665,28 +681,93 @@ void ApplicGarageWindow::on_actionNouvelle_option_triggered()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionAjouterEmploye_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    string fonction;
+    string nom = dialogueDemandeTexte("Nouveau Employé","Nom :");
+    string prenom = dialogueDemandeTexte("Nouveau Employé","Prenom :");
+    string login = dialogueDemandeTexte("Nouveau Employé","Login :");
+    int fonctionI = dialogueDemandeInt("Nouveau Employé","Fonction (0 = administratif, 1 = vendeur) : ");
+
+    if (fonctionI == 0)
+    {
+        fonction = "Administratif";
+    }
+    else
+    {
+        fonction = "Vendeur";
+    }
+
+    Garage::getInstance().ajouteEmploye(nom, prenom, login, fonction);
+    //ajouteOptionDisponible(intitule, prix);
+    videTableEmployes();
+    for (i=0; i < Garage::getInstance().getSizeEmploye(); i++)
+    {
+        ajouteTupleTableEmployes(Garage::getInstance().getEmploye(i).Tuple());
+    }
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionSupprimerEmploye_par_numero_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    int num = dialogueDemandeInt("Supprimer par numéro","Numéro : "); // 
+
+    Garage::getInstance().supprimeEmployeParNumero(num);
+
+    videTableEmployes();
+    for (i=0; i < Garage::getInstance().getSizeEmploye(); i++)
+    {
+        ajouteTupleTableEmployes(Garage::getInstance().getEmploye(i).Tuple());
+    }
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionSupprimerEmploye_selection_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    int num = getIndiceEmployeSelectionne();
+    if (num !=-1)
+    {
+        Garage::getInstance().supprimeEmployeParNumero(Garage::getInstance().getEmploye(num).getNumero());
+
+
+        videTableEmployes();
+        for (i=0; i < Garage::getInstance().getSizeEmploye(); i++)
+        {
+            ajouteTupleTableEmployes(Garage::getInstance().getEmploye(i).Tuple());
+        }
+    }
+    else
+    {
+        dialogueErreur("Erreur de suppression", "Aucun employé n’est sélectionné");
+    }
+
+
+
+    
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionAjouterClient_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    string nom = dialogueDemandeTexte("Nouveau Employé","Nom :");
+    string prenom = dialogueDemandeTexte("Nouveau Employé","Prenom :");
+    string gsm = dialogueDemandeTexte("Nouveau Employé","GSM :");
+
+    Garage::getInstance().ajouteClient(nom, prenom, gsm);
+    videTableClients();
+    for (i=0; i < Garage::getInstance().getSizeClient(); i++)
+    {
+        ajouteTupleTableClients(Garage::getInstance().getClient(i).Tuple());
+    }
 
 }
 
@@ -694,34 +775,124 @@ void ApplicGarageWindow::on_actionAjouterClient_triggered()
 void ApplicGarageWindow::on_actionSupprimerClient_par_numero_triggered()
 {
   // TO DO (étape 11)
+    int i;
+    int num = dialogueDemandeInt("Supprimer par numéro","Numéro : "); // 
 
+    Garage::getInstance().supprimeClientParNumero(num);
+    
+    videTableClients();
+    for (i=0; i < Garage::getInstance().getSizeClient(); i++)
+    {
+        ajouteTupleTableClients(Garage::getInstance().getClient(i).Tuple());
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionSupprimerClient_selection_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    int num = getIndiceClientSelectionne();
+    if (num !=-1)
+    {
+        Garage::getInstance().supprimeClientParNumero(Garage::getInstance().getClient(num).getNumero());
+        videTableClients();
+        for (i=0; i < Garage::getInstance().getSizeClient(); i++)
+        {
+            ajouteTupleTableClients(Garage::getInstance().getClient(i).Tuple());
+        }
+    }
+    else
+    {
+        dialogueErreur("Erreur de suppression", "Aucun employé n’est sélectionné");
+    }
+
+
+
+    
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionLogin_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    int i;
+    string titre;
+
+    string login = dialogueDemandeTexte("Connexion","Login :");
+
+    for (i=0; i < Garage::getInstance().getSizeEmploye(); i++)
+    {
+        if (Garage::getInstance().getEmploye(i).getLogin() == login)
+        {
+            Garage::getInstance().employe = Garage::getInstance().getEmployePt(i);
+            try
+            {
+                Garage::getInstance().getEmploye(i).getMotDePasse();
+
+                string mdp = dialogueDemandeTexte("Connexion","Mot de passe :");
+                if (Garage::getInstance().getEmploye(i).getMotDePasse() == mdp)
+                {
+                    if (Garage::getInstance().getEmploye(i).getFonction() == "Administratif")
+                    {
+                        setRole(1);
+                        titre = "Application Garage : " + Garage::getInstance().employe->getNom() + " " + Garage::getInstance().employe->getPrenom() + " (Administratif)";
+                        setTitre(titre);
+                    }
+                    else
+                    {
+                        titre = "Application Garage : " + Garage::getInstance().employe->getNom() + " " + Garage::getInstance().employe->getPrenom() + " (Vendeur)";
+                        setTitre(titre);
+                        setRole(2);
+
+                    }
+                    dialogueMessage("Connexion réussie", "Vous êtes bien connecté");
+                }
+                else
+                {
+                    dialogueErreur("Erreur de connexion", "Mot de passe incorrect !");
+                }
+            }
+            catch(PasswordException& e)
+            {
+                dialogueMessage("Première connexion", "Vous n’avez pas de mot de passe, vous allez devoir en encoder un");
+                string mdp = dialogueDemandeTexte("Nouveau employé !","Enrégistrez votre mot de passe :");
+                try
+                {
+                    Garage::getInstance().employe->setMotDePasse(mdp);
+                    dialogueMessage("Mot de passe enregistré", "Vous avez bien été enregistrez !");
+                }
+                catch(PasswordException& e)
+                {
+                    dialogueErreur("Erreur de mot de passe", e.getMessage().data());
+                }
+                
+            }
+            return;
+        }
+    }
+    dialogueErreur("Erreur de Connexion", "Login non trouvé !");
+
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionLogout_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    setRole(0);
+    setTitre("Application Garage");
+    Garage::getInstance().employe = NULL;
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionReset_Mot_de_passe_triggered()
 {
-  // TO DO (étape 11)
+    // TO DO (étape 11)
+    Garage::getInstance().employe->resetMotDePasse();
+    dialogueMessage("Mot de passe réinitialisé", "Votre mot de passe à été réinitialisé");
 
 }
 
@@ -738,7 +909,7 @@ void ApplicGarageWindow::on_pushButtonChoisirModele_clicked()
         Garage::getProjetEnCours().setModele(Garage::getInstance().getModele(ind));
         voiture = Garage::getProjetEnCours();
         setModele(voiture.getModele().getNom(),voiture.getModele().getPuissance(),voiture.getModele().getMoteur(),voiture.getModele().getPrixDeBase(),voiture.getModele().getImage());
-        // cout << "DEBUG : " << voiture.getModele().getImage() << endl;
+        cout << "DEBUG : " << voiture.getModele().getImage() << endl;
         setPrix(voiture.getPrix());
     }   
     else
