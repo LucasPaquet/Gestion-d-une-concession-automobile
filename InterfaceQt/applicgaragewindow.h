@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <string>
+
 using namespace std;
 
 QT_BEGIN_NAMESPACE

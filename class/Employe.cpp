@@ -185,3 +185,84 @@ string Employe::Tuple() const
   return r;
 }
 
+
+void Employe::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Employe : Save" << endl;
+  #endif
+  Intervenant::Save(fichier);
+
+
+  string tmp;
+
+  if ((*this).motDePasse != NULL)
+  {
+    tmp = *(*this).motDePasse;
+  }
+  else
+  {
+    tmp = "";
+  }
+
+  int taille = (*this).login.size();
+  int tailleM = tmp.size();
+  int tailleI = (*this).fonction.size();
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.write((char*)&taille,sizeof(int)); // on enregistre le nombre de caractere de login
+  fichier.write((char*)(*this).login.data(),taille*sizeof(char));
+
+  fichier.write((char*)&tailleM,sizeof(int)); // on enregistre le nombre de caractere de motDePasse
+  fichier.write((char*)tmp.data(),tailleM*sizeof(char));
+
+  fichier.write((char*)&tailleI,sizeof(int)); // on enregistre le nombre de caractere de fonction
+  fichier.write((char*)(*this).fonction.data(),tailleI*sizeof(char));
+
+}
+
+
+Employe& Employe::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Employe : Load" << endl;
+  #endif
+
+  Intervenant::Load(fichier);
+
+  int t, t2, t3;
+  string tmp;
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.read((char*)&t,sizeof(int)); // Lecture de login
+  (*this).login.resize(t);
+  fichier.read((char*)(*this).login.data(),t*sizeof(char));
+  
+  fichier.read((char*)&t2,sizeof(int)); // Lecture de fonction
+  if (t2 != 0)
+  {
+    tmp.resize(t2);
+    fichier.read((char*)tmp.data(),t2*sizeof(char));
+    setMotDePasse(tmp);
+  }
+  else
+  {
+    (*this).motDePasse = NULL;
+  }
+
+  fichier.read((char*)&t3,sizeof(int)); // Lecture de fonction
+  (*this).fonction.resize(t3);
+  fichier.read((char*)(*this).fonction.data(),t3*sizeof(char));
+
+  return (*this);
+
+}

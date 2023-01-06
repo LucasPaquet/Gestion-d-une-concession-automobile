@@ -63,3 +63,41 @@ Intervenant& Intervenant::operator=(const Intervenant& i)
 
   return (*this); 
 }
+
+// Fonctions
+
+void Intervenant::Save(ofstream & fichier) 
+{
+  #ifdef DEBUG
+  cout << "Intervenant : Save" << endl;
+  #endif
+
+  Personne::Save(fichier);
+  
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  
+  fichier.write((char*)&(*this).numero,sizeof(int)); // numero
+}
+
+
+
+void Intervenant::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Intervenant : Load" << endl;
+  #endif
+
+  Personne::Load(fichier);
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.read((char*)&(*this).numero,sizeof(int)); // numero
+}

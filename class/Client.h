@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include <string>
+#include <fstream>
 
 #include "Personne.h"
 #include "Intervenant.h"
@@ -37,6 +38,9 @@ public:
   //Fonction
   string ToString() const;
   string Tuple() const;
+
+  void Save(ofstream& fichier);
+  Client& Load(ifstream& fichier);
   
 };
 

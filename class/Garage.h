@@ -84,6 +84,11 @@ public:
 	Employe getEmploye(int indice);
 	Employe* getEmployePt(int indice);
 	int getSizeEmploye();
+
+	// Fonction
+
+	void Save(ofstream& fichier);
+  	void Load(ifstream& fichier);
     
 };
 

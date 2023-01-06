@@ -83,3 +83,46 @@ string Client::Tuple() const
   r = to_string(getNumero()) + ";" + getNom() + ";" + getPrenom()+ ";" + getGsm();
   return r;
 }
+
+
+void Client::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Client : Save" << endl;
+  #endif
+  Intervenant::Save(fichier);
+
+  int taille = (*this).gsm.size();
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.write((char*)&taille,sizeof(int)); // on enregistre le nombre de caractere de gsm
+  fichier.write((char*)(*this).gsm.data(),taille*sizeof(char));
+}
+
+
+Client& Client::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Client : Load" << endl;
+  #endif
+
+  Intervenant::Load(fichier);
+
+  int t;
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.read((char*)&t,sizeof(int)); // Lecture de gsm
+  (*this).gsm.resize(t);
+  fichier.read((char*)(*this).gsm.data(),t*sizeof(char));
+
+  return (*this);
+}

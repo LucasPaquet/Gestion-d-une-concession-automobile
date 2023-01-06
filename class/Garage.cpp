@@ -10,7 +10,6 @@ Garage::Garage()
   #ifdef DEBUG
   cout << "Contructeur par default de Garage" << endl;
   #endif
-  ajouteEmploye("ADMIN", "ADMIN", "ADMIN", "Administratif");
 }
 
 //Destructeur
@@ -279,4 +278,71 @@ Voiture Garage::projetEnCours = Voiture();
 void Garage::resetProjetEnCours()
 {
   projetEnCours = Voiture();
+}
+
+// fonction
+
+void Garage::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Garage : Save" << endl;
+  #endif
+
+  int i, sizeE, sizeC ;
+  sizeE = employes.size();
+  sizeC = clients.size();
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.write((char*)&numCourant,sizeof(int)); // numCourant
+
+  fichier.write((char*)&sizeE,sizeof(int)); // nombre d'employe
+  for(i=0;i<employes.size();i++)
+  {
+    employes[i].Save(fichier);
+  }
+
+  fichier.write((char*)&sizeC,sizeof(int)); // nombre d'employe
+  for(i=0;i<clients.size();i++)
+  {
+    clients[i].Save(fichier);
+  }
+}
+
+void Garage::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Garage : Load" << endl;
+  #endif
+
+  int num, sizeE, sizeC, i;
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.read((char*)&num,sizeof(int)); // Lecture de num courant
+
+  numCourant = num; // on remet la variable statique a jour
+
+  fichier.read((char*)&sizeE,sizeof(int)); // Lecture de la taille de employe
+
+  for(i=0;i<sizeE;i++)
+  {
+    employes.insere(employes[i].Load(fichier));
+  }
+
+  fichier.read((char*)&sizeC,sizeof(int)); // Lecture de la taille de employe
+
+  for(i=0;i<sizeC;i++)
+  {
+    clients.insere(clients[i].Load(fichier));
+  }
+
 }

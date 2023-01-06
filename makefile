@@ -135,4 +135,5 @@ reset:
 	rm -f Projet_208_MrLagalere.car
 	rm -f Peugeot2008.mod
 	rm -f JantesAlliage.opt
+	rm -f save/Garage.data
 
