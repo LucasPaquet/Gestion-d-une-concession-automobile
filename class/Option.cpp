@@ -228,8 +228,6 @@ void Option::Save(ofstream & fichier)
   fichier.write((char*)(*this).intitule.data(),tailleI*sizeof(char));
 
   fichier.write((char*)&(*this).prix,sizeof(float));
-  
-
 
 }
 

@@ -1,7 +1,11 @@
 #ifndef PERSONNE_H
 #define PERSONNE_H
+
 #include <string>
+#include <fstream>
+
 using namespace std;
+
 class Personne
 {
 	friend ostream& operator<<(ostream& s,const Personne& p);
@@ -30,6 +34,11 @@ public:
   	//surcharge des operateur 
 
   	Personne& operator=(const Personne& v);
+
+  	// Fonction
+
+  	void Save(ofstream& fichier);
+  	void Load(ifstream& fichier);
 
 };
 

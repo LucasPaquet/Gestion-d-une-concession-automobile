@@ -2,6 +2,7 @@
 #define EMPLOYE_H
 
 #include <string>
+#include <fstream>
 
 #include "Intervenant.h"
 #include "Personne.h"
@@ -50,6 +51,9 @@ public:
  
   string ToString() const;
   string Tuple() const;
+
+  void Save(ofstream& fichier);
+  Employe& Load(ifstream& fichier);
 
   
 };

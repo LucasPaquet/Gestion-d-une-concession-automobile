@@ -2,6 +2,8 @@
 #define INTERVENANT_H
 
 #include <string>
+#include <fstream>
+
 #include "Personne.h"
 
 using namespace std;
@@ -30,6 +32,9 @@ public:
 
 	virtual string ToString() const = 0;
 	virtual string Tuple() const = 0;
+
+	void Save(ofstream& fichier);
+  	void Load(ifstream& fichier);
 };
 
 

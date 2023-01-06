@@ -75,6 +75,52 @@ Personne& Personne::operator=(const Personne& p)
   return (*this); 
 }
 
+void Personne::Save(ofstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Personne : Save" << endl;
+  #endif
+
+  int taille = (*this).nom.size();
+  int tailleI = (*this).prenom.size();
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+
+  fichier.write((char*)&taille,sizeof(int)); // on enregistre le nombre de caractere de nom
+  fichier.write((char*)(*this).nom.data(),taille*sizeof(char));
+
+  fichier.write((char*)&tailleI,sizeof(int)); // on enregistre le nombre de caractere de prenom
+  fichier.write((char*)(*this).prenom.data(),tailleI*sizeof(char));
+}
+
+void Personne::Load(ifstream & fichier)
+{
+  #ifdef DEBUG
+  cout << "Personne : Load" << endl;
+  #endif
+
+  int t;
+  int t2;
+
+  if (!fichier)
+  {
+    cout << "erreur d'ouverture !" << endl;
+    exit(1);
+  }
+  fichier.read((char*)&t,sizeof(int)); // Lecture de nom
+  (*this).nom.resize(t);
+  fichier.read((char*)(*this).nom.data(),t*sizeof(char));
+  
+
+  fichier.read((char*)&t2,sizeof(int)); // Lecture de prenom
+  (*this).prenom.resize(t2);
+  fichier.read((char*)(*this).prenom.data(),t2*sizeof(char));
+
+}
 
 
 

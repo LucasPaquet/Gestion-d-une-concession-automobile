@@ -74,6 +74,7 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
 
     // Importation des modeles (étape 10)
     // TO DO
+
     Garage::getInstance().importeModeles("Modeles.csv");
     for (int i = 0; i < Garage::getInstance().getSizeModele(); i++)
     {
@@ -89,15 +90,41 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     }
 
 
-    // Ouverture (et/ou creation) du fichier Garage.data (étape 12)
+    // Ouverture (et/ou creation) du fichier save/Garage.data (étape 12)
     // TO DO
+    FILE * fd;
 
+    fd = fopen("save/Garage.data", "rb");
+    if(fd == NULL)
+    {
+        Garage::getInstance().ajouteEmploye("ADMIN", "ADMIN", "ADMIN", "Administratif");
+        ofstream fichier1("save/Garage.data",ios::out);
+        Garage::getInstance().Save(fichier1);
+        fichier1.close();
+        Garage::getInstance().supprimeEmployeParNumero(1);
+    }
+    
+    ifstream fichier1("save/Garage.data",ios::in);
+    Garage::getInstance().Load(fichier1);
 
-    for (int i=0; i < Garage::getInstance().getSizeEmploye(); i++)// pour que ADMIN soit afficher
+    fichier1.close();
+
+    videTableEmployes();
+    for (int i=0; i < Garage::getInstance().getSizeEmploye(); i++)
     {
         ajouteTupleTableEmployes(Garage::getInstance().getEmploye(i).Tuple());
     }
+
+    videTableClients();
+    for (int i=0; i < Garage::getInstance().getSizeClient(); i++)
+    {
+        ajouteTupleTableClients(Garage::getInstance().getClient(i).Tuple());
+    }
+        
+    
     setRole(0);  // acces a tout pour l'instant
+
+    
 
     //******* EXEMPLES (A SUPPRIMER) *******************************************
     // setTableOption(1,"XY08","Toit ouvrant",850.0);
@@ -619,16 +646,22 @@ float ApplicGarageWindow::dialogueDemandeFloat(const char* titre,const char* que
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_actionQuitter_triggered()
 {
-  // TO DO (étape 12)
+    // TO DO (étape 12)
+    ofstream fichier1("save/Garage.data",ios::out);
+    Garage::getInstance().Save(fichier1);
+    fichier1.close();
 
-  QApplication::exit();
+    QApplication::exit();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::closeEvent(QCloseEvent *event)
 {
-  if (event == NULL) {}  // pour éviter le warning
-  // TO DO (étape 12)
+    if (event == NULL) {}  // pour éviter le warning
+    // TO DO (étape 12)
+    ofstream fichier1("save/Garage.data",ios::out);
+    Garage::getInstance().Save(fichier1);
+    fichier1.close();
 
 }
 
