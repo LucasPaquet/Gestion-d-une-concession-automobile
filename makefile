@@ -26,7 +26,6 @@ $(OBJECT)/moc_applicgaragewindow.o:	$(QT)/moc_applicgaragewindow.cpp $(QT)/appli
 		echo Creation de moc_applicgaragewindow.o
 		$(CO) -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ -o $(OBJECT)/moc_applicgaragewindow.o $(QT)/moc_applicgaragewindow.cpp
 
-
 $(OBJECT)/Modele.o:	$(CLASS)/Modele.cpp $(CLASS)/Modele.h
 	echo Creation Modele.o
 	g++ $(CLASS)/Modele.cpp -I $(CLASS) -c -o $(OBJECT)/Modele.o #-D DEBUG
@@ -86,6 +85,7 @@ $(OBJECT)/Contrat.o:	$(CLASS)/Contrat.cpp $(CLASS)/Contrat.h
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1
 	g++ Test1.cpp -I $(CLASS) $(OBJECT)/Modele.o -o Test1
+
 Test2b:	Test2b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o
 	echo Creation de Test2b
 	g++ Test2b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o -o Test2b #-D DEBUG
@@ -117,6 +117,7 @@ Test8b:	Test8b.cpp $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(O
 	echo Creation de Test8b
 	g++ Test8b.cpp -I $(CLASS) $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o -o Test8b #-D DEBUG
 
+
 clean:
 	echo Suppression des .o
 	rm -f $(OBJECT)/*.o
@@ -140,4 +141,5 @@ reset:
 	rm -f Peugeot2008.mod
 	rm -f JantesAlliage.opt
 	rm -f save/Garage.data
+
 

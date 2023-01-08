@@ -5,6 +5,7 @@
 #include "Option.h"
 #include "OptionException.h"
 
+
 #include <string>
 #include <fstream>
 
@@ -22,7 +23,6 @@ private:
 
 public:
   //constructeur
-
   Voiture();
   Voiture(string nom,const Modele& modele);
   Voiture(const Voiture& p);

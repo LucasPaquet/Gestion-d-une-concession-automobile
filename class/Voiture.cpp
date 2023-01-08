@@ -5,7 +5,6 @@
 #include "Modele.h"
 
 
-
 //Constructeur
 Voiture::Voiture()
 {
@@ -21,7 +20,9 @@ Voiture::Voiture()
   
 }
 
+
 Voiture::Voiture(string n,const Modele& m)
+
 {
   int i;
   #ifdef DEBUG
@@ -79,6 +80,7 @@ Voiture::~Voiture()
 
 }
 //getX et SetX
+
 string Voiture::getNom() const {return nom;}
 Modele Voiture::getModele() const {return modele;}
 Option * Voiture::getOption(int i) const {return options[i];}
@@ -239,6 +241,7 @@ Option* Voiture::operator[](int i)
 
 
 
+
 //Fonctions
 void Voiture::Affiche() // affiche le Voiture au terminal
 {
@@ -306,6 +309,7 @@ void Voiture::AjouteOption(const Option & option) // ajoute une option a la voit
   }
   
 }
+
 
 void Voiture::RetireOption(string code) // retire une option a la voiture 
 {

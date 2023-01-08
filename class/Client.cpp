@@ -40,6 +40,7 @@ Client::~Client()
   #ifdef DEBUG
   cout << "Destructeur de client" << endl;
   #endif
+  cout << "Destructeur de Client" << endl;
 }
 
 //setXXX et getXXX
