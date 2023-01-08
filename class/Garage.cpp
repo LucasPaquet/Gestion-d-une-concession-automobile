@@ -2,6 +2,7 @@
 #include "Garage.h"
 
 static int numCourant = 1;
+static int ctrCourant = 1;
 static Employe * logEmp;
 
 //Constructeur
@@ -72,14 +73,35 @@ void Garage::importeModeles(string nomFichier)
         champs = strtok ( buf, separateur ); // lecture le champs
         while ( champs != NULL ) // jusqu'a un retour a la ligne
         {
-          cout << &champs << endl;
+          
             switch(i) // pour remplir le bon champs du modele
             {
-              case 0: mod.setNom(champs);
+              case 0: mod.setNom(champs); 
                       break;
               case 1: mod.setPuissance(atoi(champs));
                       break;
-              case 2: mod.setMoteur(Diesel);
+              case 2: if (strcmp(champs, "hybride") == 0)
+                      {
+                        mod.setMoteur(Hybride);
+                      }
+                      else 
+                      {
+                        if (strcmp(champs, "diesel") == 0)
+                        {
+                          mod.setMoteur(Diesel);
+                        }
+                        else 
+                        {
+                          if (strcmp(champs, "electrique") == 0)
+                          {
+                            mod.setMoteur(Electrique);
+                          }
+                          else 
+                          {
+                            mod.setMoteur(Essence);
+                          }
+                        }
+                      }
                       break;
               case 3: mod.setImage(champs);
                       break;
@@ -93,11 +115,6 @@ void Garage::importeModeles(string nomFichier)
         ajouteModele(mod);
 
 
-    }
-
-    for (int i = 0; i < 15; ++i)
-    {
-      cout << getModele(i) << endl;
     }
 }
 
@@ -262,6 +279,30 @@ Employe* Garage::getEmployePt(int indice)
 int Garage::getSizeEmploye(){ return employes.size(); }
 
 
+// Contrat
+
+void Garage::ajouteContrat(string c,string v)
+{
+  Contrat ctr;
+  ctr.setNumero(ctrCourant);
+  ctr.setVendeur(employe->getNom());
+  ctr.setClient(c);
+  ctr.setVoiture(v);
+  contrats.insere(ctr);
+  ctrCourant++;
+}
+
+void Garage::supprimeContratParNumero(int ind)
+{
+  contrats.retire(ind);
+}
+
+int Garage::getSizeContrat(){ return contrats.size(); }
+
+Contrat Garage::getContrat(int indice)
+{
+  return contrats[indice];
+}
 
 Garage& Garage::getInstance()
 {
@@ -288,9 +329,10 @@ void Garage::Save(ofstream & fichier)
   cout << "Garage : Save" << endl;
   #endif
 
-  int i, sizeE, sizeC ;
+  int i, sizeE, sizeC, sizeCtr ;
   sizeE = employes.size();
   sizeC = clients.size();
+  sizeCtr = contrats.size();
 
   if (!fichier)
   {
@@ -299,6 +341,7 @@ void Garage::Save(ofstream & fichier)
   }
 
   fichier.write((char*)&numCourant,sizeof(int)); // numCourant
+  fichier.write((char*)&ctrCourant,sizeof(int)); // nombre courant de contrat
 
   fichier.write((char*)&sizeE,sizeof(int)); // nombre d'employe
   for(i=0;i<employes.size();i++)
@@ -311,6 +354,13 @@ void Garage::Save(ofstream & fichier)
   {
     clients[i].Save(fichier);
   }
+
+  fichier.write((char*)&sizeCtr,sizeof(int)); // nombre de contrat
+
+  for(i=0;i<contrats.size();i++)
+  {
+    contrats[i].Save(fichier);
+  }
 }
 
 void Garage::Load(ifstream & fichier)
@@ -319,7 +369,7 @@ void Garage::Load(ifstream & fichier)
   cout << "Garage : Load" << endl;
   #endif
 
-  int num, sizeE, sizeC, i;
+  int num, sizeE, sizeC,sizeCtr, i;
 
   if (!fichier)
   {
@@ -330,6 +380,10 @@ void Garage::Load(ifstream & fichier)
   fichier.read((char*)&num,sizeof(int)); // Lecture de num courant
 
   numCourant = num; // on remet la variable statique a jour
+
+  fichier.read((char*)&sizeCtr,sizeof(int)); // Lecture de la taille de contrat
+
+  ctrCourant = sizeCtr; // on remet la variable statique a jour
 
   fichier.read((char*)&sizeE,sizeof(int)); // Lecture de la taille de employe
 
@@ -343,6 +397,13 @@ void Garage::Load(ifstream & fichier)
   for(i=0;i<sizeC;i++)
   {
     clients.insere(clients[i].Load(fichier));
+  }
+
+  
+  fichier.read((char*)&sizeCtr,sizeof(int)); // Lecture de la taille de employe
+  for(i=0;i<sizeCtr;i++) // -1 car ctrCourant est le num de contrat d'après
+  {
+    contrats.insere(contrats[i].Load(fichier));
   }
 
 }

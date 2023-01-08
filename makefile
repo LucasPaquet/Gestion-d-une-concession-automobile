@@ -3,7 +3,7 @@
 CLASS =./class
 OBJECT =./object
 CO=g++
-OBJS_QT = $(OBJECT)/main.o $(OBJECT)/applicgaragewindow.o $(OBJECT)/moc_applicgaragewindow.o $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o
+OBJS_QT = $(OBJECT)/main.o $(OBJECT)/applicgaragewindow.o $(OBJECT)/moc_applicgaragewindow.o $(OBJECT)/Modele.o $(OBJECT)/Voiture.o $(OBJECT)/Option.o $(OBJECT)/Personne.o $(OBJECT)/Intervenant.o $(OBJECT)/Client.o $(OBJECT)/Employe.o $(OBJECT)/OptionException.o $(OBJECT)/Exception.o $(OBJECT)/PasswordException.o $(OBJECT)/Vecteur.o $(OBJECT)/Iterateur.o $(OBJECT)/Garage.o $(OBJECT)/Contrat.o
 PROGRAMS = ApplicGarage
 QT = InterfaceQt
 
@@ -77,6 +77,10 @@ $(OBJECT)/Iterateur.o:	$(CLASS)/Iterateur.cpp $(CLASS)/Iterateur.h
 $(OBJECT)/Garage.o:	$(CLASS)/Garage.cpp $(CLASS)/Garage.h
 	echo Creation Garage.o
 	g++ $(CLASS)/Garage.cpp -I $(CLASS) -c -o $(OBJECT)/Garage.o #-D DEBUG
+
+$(OBJECT)/Contrat.o:	$(CLASS)/Contrat.cpp $(CLASS)/Contrat.h
+	echo Creation Contrat.o
+	g++ $(CLASS)/Contrat.cpp -I $(CLASS) -c -o $(OBJECT)/Contrat.o #-D DEBUG
 
 Test1:	Test1.cpp $(OBJECT)/Modele.o
 	echo Creation de Test1

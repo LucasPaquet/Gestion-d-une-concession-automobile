@@ -210,7 +210,6 @@ void Option::Save(ofstream & fichier)
   #ifdef DEBUG
   cout << "Option : Save" << endl;
   #endif
-  cout << "Option : Save" << endl;
 
   int taille = (*this).code.size();
   int tailleI = (*this).intitule.size();
@@ -238,7 +237,6 @@ void Option::Load(ifstream & fichier)
   #ifdef DEBUG
   cout << "Option : Load" << endl;
   #endif
-  cout << "Option : Load" << endl;
   int t;
   int t2;
   if (!fichier)

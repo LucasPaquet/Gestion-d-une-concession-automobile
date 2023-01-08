@@ -7,6 +7,7 @@
 #include "Modele.h"
 #include "Option.h"
 #include "Employe.h"
+#include "Contrat.h"
 
 using namespace std;
 
