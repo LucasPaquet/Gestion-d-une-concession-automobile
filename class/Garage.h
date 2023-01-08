@@ -11,6 +11,7 @@
 #include "Vecteur.h"
 #include "Voiture.h"
 #include "Modele.h"
+#include "Contrat.h"
 
 
 #include <string>
@@ -25,6 +26,7 @@ private:
 	Vecteur<Employe> employes; // ou Vecteur<Employe>
 	Vecteur<Modele> modeles;
 	Vecteur<Option> options;
+	Vecteur<Contrat> contrats;
 
 	static Garage instance; // singleton de l'application
 
@@ -84,6 +86,13 @@ public:
 	Employe getEmploye(int indice);
 	Employe* getEmployePt(int indice);
 	int getSizeEmploye();
+
+	// Contrat
+
+	void ajouteContrat(string c,string v);
+	void supprimeContratParNumero(int num);
+	Contrat getContrat(int indice);
+	int getSizeContrat();
 
 	// Fonction
 

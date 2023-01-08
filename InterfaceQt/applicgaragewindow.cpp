@@ -78,7 +78,6 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     Garage::getInstance().importeModeles("Modeles.csv");
     for (int i = 0; i < Garage::getInstance().getSizeModele(); i++)
     {
-        cout << Garage::getInstance().getModele(i) << endl;
         ajouteModeleDisponible(Garage::getInstance().getModele(i).getNom(),Garage::getInstance().getModele(i).getPrixDeBase());
     }
     // Importation des options (étape 10)
@@ -120,19 +119,17 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     {
         ajouteTupleTableClients(Garage::getInstance().getClient(i).Tuple());
     }
+
+    videTableContrats();
+    for (int i=0; i < Garage::getInstance().getSizeContrat(); i++)
+    {
+        ajouteTupleTableContrats(Garage::getInstance().getContrat(i).Tuple());
+    }
         
     
-    setRole(0);  // acces a tout pour l'instant
+    setRole(4);  // acces a tout pour l'instant
 
-    
 
-    //******* EXEMPLES (A SUPPRIMER) *******************************************
-    // setTableOption(1,"XY08","Toit ouvrant",850.0);
-    // setModele("Peugeot 308",120,1,22300.0,"308.jpg");
-    // ajouteTupleTableEmployes("2;Wagner;Jean-Marc;Vendeur");
-    // ajouteTupleTableClients("8;Leonard;Anne;0475/47.25.36");
-    // ajouteTupleTableContrats("3;Wagner Jean-Marc;Quettier Patrick;508_ProjetQuettier");
-    //**************************************************************************
 }
 
 ApplicGarageWindow::~ApplicGarageWindow()
@@ -935,15 +932,12 @@ void ApplicGarageWindow::on_actionReset_Mot_de_passe_triggered()
 void ApplicGarageWindow::on_pushButtonChoisirModele_clicked()
 {
     // TO DO (étape 9)
-    Voiture voiture;
     int ind = getIndiceModeleSelectionneCombobox();
     if (ind != -1)
     {
         Garage::getProjetEnCours().setModele(Garage::getInstance().getModele(ind));
-        voiture = Garage::getProjetEnCours();
-        setModele(voiture.getModele().getNom(),voiture.getModele().getPuissance(),voiture.getModele().getMoteur(),voiture.getModele().getPrixDeBase(),voiture.getModele().getImage());
-        cout << "DEBUG : " << voiture.getModele().getImage() << endl;
-        setPrix(voiture.getPrix());
+        setModele(Garage::getInstance().getModele(ind).getNom(),Garage::getProjetEnCours().getModele().getPuissance(),Garage::getProjetEnCours().getModele().getMoteur(),Garage::getProjetEnCours().getModele().getPrixDeBase(),Garage::getProjetEnCours().getModele().getImage());
+        setPrix(Garage::getProjetEnCours().getPrix());
     }   
     else
     {
@@ -1067,9 +1061,8 @@ void ApplicGarageWindow::on_pushButtonEnregistrerProjet_clicked()
 void ApplicGarageWindow::on_pushButtonOuvrirProjet_clicked()
 {
     // TO DO (étape 9)
-    Voiture voiture;
     Option * opt;
-    Garage::getProjetEnCours().Load(getNomProjetEnCours()); // charger le projet
+    Garage::getProjetEnCours().Load("save/"+getNomProjetEnCours()+".car"); // charger le projet
 
     for(int i=0;i<5;i++) // boucle pour afficher les opts
     {
@@ -1086,9 +1079,7 @@ void ApplicGarageWindow::on_pushButtonOuvrirProjet_clicked()
     }
     setPrix(Garage::getProjetEnCours().getPrix());
     
-    voiture = Garage::getProjetEnCours();
-    setModele(voiture.getModele().getNom(),voiture.getModele().getPuissance(),voiture.getModele().getMoteur(),voiture.getModele().getPrixDeBase(),voiture.getModele().getImage());
-        
+    setModele(Garage::getProjetEnCours().getModele().getNom(),Garage::getProjetEnCours().getModele().getPuissance(),Garage::getProjetEnCours().getModele().getMoteur(),Garage::getProjetEnCours().getModele().getPrixDeBase(),Garage::getProjetEnCours().getModele().getImage());
 
 }
 
@@ -1109,21 +1100,67 @@ void ApplicGarageWindow::on_pushButtonNouveauProjet_clicked()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonNouveauContrat_clicked()
 {
-  // TO DO (étape 13)
-
+    // TO DO (étape 13)
+    int indCli;
+    indCli = getIndiceClientSelectionne();
+    Garage::getInstance().ajouteContrat(Garage::getInstance().getClient(indCli).getNom(), getNomProjetEnCours());
+    videTableContrats();
+    for (int i=0; i < Garage::getInstance().getSizeContrat(); i++)
+    {
+        ajouteTupleTableContrats(Garage::getInstance().getContrat(i).Tuple());
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonSupprimerContrat_clicked()
 {
-  // TO DO (étape 13)
+    // TO DO (étape 13)
+    int num = getIndiceContratSelectionne();
+    if (num !=-1)
+    {
+        Garage::getInstance().supprimeContratParNumero(num);
+        videTableContrats();
+        for (int i=0; i < Garage::getInstance().getSizeContrat(); i++)
+        {
+            ajouteTupleTableContrats(Garage::getInstance().getContrat(i).Tuple());
+        }
+    }
+    else
+    {
+        dialogueErreur("Erreur de suppression", "Aucun contrat n’est sélectionné");
+    }
+
+    
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonVisualiserVoiture_clicked()
 {
-  // TO DO (étape 13)
+    // TO DO (étape 13)
+    Voiture voiture;
+    Option * opt;
+    Garage::resetProjetEnCours();
+    Garage::getProjetEnCours().Load("save/"+Garage::getInstance().getContrat(getIndiceContratSelectionne()).getVoiture()+".car"); // charger le projet
+
+    for(int i=0;i<5;i++) // boucle pour afficher les opts
+    {
+        opt = Garage::getProjetEnCours()[i];
+        if (opt != NULL)
+        {
+            setTableOption(i, Garage::getProjetEnCours()[i]->getCode(), Garage::getProjetEnCours()[i]->getIntitule(), Garage::getProjetEnCours()[i]->getPrix());
+        }
+        else
+        {
+            setTableOption(i);
+        }
+        
+    }
+    setPrix(Garage::getProjetEnCours().getPrix());
+    
+    voiture = Garage::getProjetEnCours();
+    setModele(voiture.getModele().getNom(),voiture.getModele().getPuissance(),voiture.getModele().getMoteur(),voiture.getModele().getPrixDeBase(),voiture.getModele().getImage());
+        
 
 }
 

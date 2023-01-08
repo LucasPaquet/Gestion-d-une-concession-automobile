@@ -2,6 +2,7 @@
 #define MODELE_H
 
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -43,6 +44,10 @@ public:
   void setMoteur(Moteur );
   void setPrixDeBase(float ); 
   void setImage(string);
+
+  // surcharge des op
+
+   Modele& operator=(const Modele& modele);
 
   //fonctions
 

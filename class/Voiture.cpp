@@ -33,6 +33,7 @@ Voiture::Voiture(string n,const Modele& m)
   }
   nom = n;
   setModele(m);
+
 }
 Voiture::Voiture(const Voiture& p)
 {
@@ -58,6 +59,7 @@ Voiture::Voiture(const Voiture& p)
   }
   nom = p.nom;
   setModele(p.modele);
+
   
 }
 //Destucteur
@@ -88,6 +90,7 @@ void Voiture::setModele(const Modele& m)
   modele.setPuissance(m.getPuissance());
   modele.setMoteur(m.getMoteur());
   modele.setPrixDeBase(m.getPrixDeBase());
+  modele.setImage(m.getImage());
 } 
 
 void Voiture::setOption( Option* o, int i)
@@ -128,6 +131,7 @@ Voiture& Voiture::operator=(const Voiture& v)
     }
   }
   nom = v.nom;
+
   setModele(v.modele);
 
   return (*this); 
@@ -354,10 +358,9 @@ void Voiture::Save()//(ofstream fichier)
   #ifdef DEBUG
   cout << "Voiture : Save" << endl;
   #endif
-  cout << "Voiture : Save" << endl;
   Option* optionp=NULL;
-  int taille = (*this).nom.size(), nbOpt = 0;
-  string NomFichier = (*this).nom + ".car";
+  int taille = (*this).nom.size(), nbOpt = 0, tailleI;
+  string NomFichier = "save/"+(*this).nom + ".car";
   ofstream fichier(NomFichier.data(), ios::out);
   if (!fichier)
   {
@@ -389,6 +392,8 @@ void Voiture::Save()//(ofstream fichier)
       optionp->Save(fichier);
     }
   }
+
+  
   fichier.close();
 }
 
@@ -400,15 +405,13 @@ void Voiture::Load(string NomFichier)
   #ifdef DEBUG
   cout << "Voiture : Load" << endl;
   #endif
-  cout << "Voiture : Load" << endl;
 
   Option* opt;
 
-  int t;
+  int t,t2 ;
   int nbOpt;
 
   ifstream fichier(NomFichier,ios::in);
-
   if (!fichier)
   {
     cout << "erreur d'ouverture !" << endl;
@@ -433,5 +436,6 @@ void Voiture::Load(string NomFichier)
     options[i]->Load(fichier);
   }
   
+
   fichier.close();
 }

@@ -54,8 +54,8 @@ Modele::~Modele()
   cout << "Destructeur de modele" << endl;
   //this->Affiche();
   #endif
-  // if (nom)
-  //   delete [] nom;
+  if (nom)
+    delete [] nom;
 }
 
 //getX et SetX
@@ -129,7 +129,19 @@ istream& operator>> (istream& s, Modele& m)
   m.setNom(buff.data());
   return s;
 }
+ Modele& Modele::operator=(const Modele& modele)
+ {
 
+    setNom(modele.getNom());
+    setPuissance(modele.getPuissance());
+    setPrixDeBase(modele.getPrixDeBase());
+    setMoteur(modele.getMoteur());
+
+    setImage(modele.getImage());
+
+    return (*this);
+  
+ }
 //Fonctions
 
 void Modele::Affiche() // affiche le modele au terminal
@@ -155,8 +167,7 @@ void Modele::Save(ofstream & fichier)
   #ifdef DEBUG
   cout << "Modele : Save" << endl;
   #endif
-  cout << "Modele : Save" << endl;
-  int taille = strlen((*this).nom);
+  int taille = strlen((*this).nom), tailleI = (*this).image.size();
   if (!fichier)
   {
     cout << "erreur d'ouverture !" << endl;
@@ -172,6 +183,9 @@ void Modele::Save(ofstream & fichier)
 
   fichier.write((char*)&(*this).prixDeBase,sizeof(float)); // prixDeBase
 
+  fichier.write((char*)&tailleI,sizeof(int)); // on enregistre le nombre de caractere de image
+  fichier.write((char*)(*this).image.data(),tailleI*sizeof(char));
+
 }
 
 
@@ -180,8 +194,7 @@ void Modele::Load(ifstream & fichier)
   #ifdef DEBUG
   cout << "Modele : Load" << endl;
   #endif
-  cout << "Modele : Load" << endl;
-  int t;
+  int t, t2;
   if (!fichier)
   {
     cout << "erreur d'ouverture !" << endl;
@@ -199,5 +212,8 @@ void Modele::Load(ifstream & fichier)
 
   fichier.read((char*)&(*this).prixDeBase,sizeof(float)); // prix de base
 
+  fichier.read((char*)&t2,sizeof(int)); // Lecture de image
+  (*this).image.resize(t2);
+  fichier.read((char*)(*this).image.data(),t2*sizeof(char));
 
 }
