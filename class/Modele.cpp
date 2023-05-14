@@ -148,9 +148,6 @@ istream& operator>> (istream& s, Modele& m)
  }
 //Fonctions
 
-=======
-//Fonctions
-
 void Modele::Affiche() // affiche le modele au terminal
 {
   cout << "Nom : "<< nom << ", puissance : " << puissance << ", Prix de base : " << prixDeBase <<", Image : " << image << ", Moteur : ";
