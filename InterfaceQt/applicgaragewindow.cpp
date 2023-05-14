@@ -127,7 +127,7 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     }
         
     
-    setRole(4);  // acces a tout pour l'instant
+    setRole(0);  // acces a tout pour l'instant
 
 
 }
@@ -729,7 +729,6 @@ void ApplicGarageWindow::on_actionAjouterEmploye_triggered()
     }
 
     Garage::getInstance().ajouteEmploye(nom, prenom, login, fonction);
-    //ajouteOptionDisponible(intitule, prix);
     videTableEmployes();
     for (i=0; i < Garage::getInstance().getSizeEmploye(); i++)
     {

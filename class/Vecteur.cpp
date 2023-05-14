@@ -60,7 +60,7 @@ Vecteur<T>::~Vecteur()
 //operateur de surcharge
 
 template <class T>
-Vecteur<T>& Vecteur<T>::operator=(const Vecteur<T>& vec)
+Vecteur<T>& Vecteur<T>::operator=(const Vecteur& vec)
 {
 	int i;
 	_sizeMax = vec._sizeMax;
@@ -141,4 +141,3 @@ template class Vecteur<Modele>;
 template class Vecteur<Option>;
 template class Vecteur<Employe>;
 template class Vecteur<Contrat>;
-

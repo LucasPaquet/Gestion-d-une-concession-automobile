@@ -33,7 +33,7 @@ public:
 
     //operateur de surcharges
 
-    Vecteur<T>& operator=(const Vecteur<T>& vec);
+    Vecteur<T>& operator=(const Vecteur& vec);
     T& operator[](int ref);
 
     //Fonction
