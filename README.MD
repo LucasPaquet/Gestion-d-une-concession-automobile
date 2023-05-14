@@ -10,7 +10,7 @@ Vous disposez ici :
 
 # Installation
 
-1. Clone le repo `git clone https://github.com/LucasPaquet/Gestion-d-une-concession-automobile.git`
+1. `git clone https://github.com/LucasPaquet/Gestion-d-une-concession-automobile.git`
 2. `cd Gestion-d-une-concession-automobile`
 3. `make`
 4. `./ApplicGarage`
